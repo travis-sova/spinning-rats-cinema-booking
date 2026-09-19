@@ -14,7 +14,11 @@ router.get("/movies", async (req, res) => {
 router.get("/shows", async (req, res) => {
   try {
     const [shows] = await db.execute(`
-      SELECT s.*, m.name as movie_name, m.img as movie_img, c.name as cinema_name 
+      SELECT s.*,
+        DATE_FORMAT(s.date, '%Y-%m-%d') AS date,
+        m.name as movie_name,
+        m.img as movie_img,
+        c.name as cinema_name
       FROM shows s
       JOIN movies m ON s.movie = m.id
       JOIN cinema c ON s.cinema = c.id

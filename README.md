@@ -3,80 +3,136 @@
   Spinning Rat's Cinema
 </h1>
 
-Spinning Rat's Cinema is a school project — a simple cinema booking site that lets you browse movies, view showtimes, and book tickets easily. It’s built to practice full-stack development 
+A full-stack school project for browsing movies, filtering showtimes, and demonstrating ticket and seat selection.
 
-## Environment Variables
+Built with Vue 3, TypeScript, Pinia, Vue Router, Vue I18n, Tailwind CSS, and DaisyUI, with an Express and MySQL backend.
 
-To run this project, you will need to add the following environment variables to your **.env** file in the **backend** folder
+## Features
 
-`DB_HOST=`
+- Movie listings and details
+- Showtimes filtered by date and genre, with title sorting
+- Cinema information, events, and news
+- Account registration, login, profile editing, and password changes
+- Admin tools for managing movies, shows, and users
+- English and Estonian interfaces
+- Demo ticket selection and purchase summaries
 
-`DB_USER=`
+## Demo limitations
 
-`DB_PASSWORD=`
+Seat occupancy is generated in the browser. Purchase pages display a summary; they do not process payments or save reservations.
 
-`DB_NAME=`
+The application is intended for a local environment. API URLs currently point to `http://localhost:3000`.
 
-`JWT_SECRET=`
+## Requirements
 
-`JWT_EXPIRES_IN=`
+- Node.js 22 and npm
+- MySQL 8
+- Git
 
+## Local setup
 
-## Run Locally
+### 1. Clone and install
 
-Clone the project
+```sh
+git clone https://github.com/travis-sova/spinning-rats-cinema-booking.git
+cd spinning-rats-cinema-booking
 
-```bash
-  git clone https://github.com/travis-sova/TA22E-A1-projekt.git
+npm run setup
 ```
 
-Go to the project directory
+### 2. Configure the backend
 
-```bash
-  cd TA22E-A1-project
+Copy `backend/.env.example` to `backend/.env` and configure:
+
+```dotenv
+DB_HOST=localhost
+DB_USER=your_mysql_user
+DB_PASSWORD=your_mysql_password
+DB_NAME=Cinema
+JWT_SECRET=replace_with_a_long_random_secret
+JWT_EXPIRES_IN=1h
 ```
 
-Install root, front- and backend packages automatically
+The database name must match the database created below.
 
-```bash
-  npm run all
+### 3. Create the development database
+
+From the repository root, open the MySQL client:
+
+```sh
+mysql -u root -p
 ```
 
-Start the server and Vue app (experimental)
+Then run:
 
-```bash
-  npm run start
+```sql
+CREATE DATABASE Cinema CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE Cinema;
+SOURCE backend/DUMP/dump.sql;
 ```
 
-Manual startup (alternative method)
+**Import into a disposable development database: the dump drops and recreates its tables.**
 
-```bash
-    cd backend && npm run dev
+The seed includes:
+
+- Three cinemas
+- Twenty movies
+- Forty screenings dated 19–25 January 2027
+- a development-only `admin` account with the password `admin`
+
+The sample screening dates are fixed. Update them when preparing a newer demo.
+
+### 4. Start the application
+
+From the repository root:
+
+```sh
+npm start
 ```
 
-_In a separate terminal:_
+Open the frontend URL printed by Vite. The backend normally runs on port 3000.
 
-```bash
-    cd frontend && npm run dev
+Alternatively, start each service in a separate terminal:
+
+```sh
+npm --prefix backend run dev
 ```
 
-Database Setup
+```sh
+npm --prefix frontend run dev
+```
 
-Be sure to set up the MySQL database according to your .env file in the backend folder.
-A SQL dump file is included in the project to help you create the necessary tables and data.
+If the homepage contains no show cards, check that the database contains screenings as well as movies.
 
-## Tech Stack
+## Project structure
 
-**Client:** Vue 3, Pinia, Vue Router, Vue I18n, TailwindCSS, DaisyUI
+```text
+backend/
+  DUMP/          Database schema and demo seed data
+  middleware/    Authentication and request validation
+  routes/        API endpoints
 
-**Server:** Node.js, Express, MySQL2, JWT, Nodemailer, Bcrypt
+frontend/
+  src/
+    components/  Reusable interface components
+    data/        Static news and event data
+    locales/     English and Estonian translations
+    router/      Page routes
+    stores/      Application state
+    types/       Shared TypeScript definitions
+    views/       Page components
+  tools/         Data preparation utilities
+```
 
-**Build Tools:** Vite, TypeScript, ESLint, Prettier
+## Movie data utility
 
-## Roadmap
+`frontend/tools/FetchMovies.js` retrieves movie data from TMDb and writes `movies.js` in the working directory.
 
-  - Search Function
+It is a manual data-preparation utility for refreshing the SQL seed. It does not update MySQL automatically and is not part of application startup.
 
-    ##### Later
-    - UI tweaks
-    - Optimize images
+## Not implemented
+
+- Persistent reservations and real seat availability
+- Automated tests and CI checks
+- Configurable API URLs
+- Search

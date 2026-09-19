@@ -9,7 +9,7 @@ const {
   validatePasswordChangeInput,
 } = require("../middleware/validation");
 const rateLimit = require("express-rate-limit");
-const { authenticate, deleteAuthentication, changePassword } = require("../middleware/auth");
+const { authenticate } = require("../middleware/auth");
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -49,7 +49,7 @@ router.post("/register", validateRegisterInput, async (req, res) => {
         perms: 0,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
     );
 
     const user = {
@@ -67,8 +67,12 @@ router.post("/register", validateRegisterInput, async (req, res) => {
       user,
     });
   } catch (err) {
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({ error: "Username or email already exists" });
+    }
+
     console.error("Registration error:", err);
-    res.status(500).json({ error: "Registration failed" });
+    return res.status(500).json({ error: "Registration failed" });
   }
 });
 
@@ -98,7 +102,7 @@ router.post("/login", validateLoginInput, async (req, res) => {
         perms: user.perms,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
     );
 
     const { password: _, ...userData } = user;
@@ -126,28 +130,85 @@ router.get("/me", authenticate, async (req, res) => {
 
 router.put("/me", authenticate, async (req, res) => {
   try {
-    res.json('User Updated');
+    const id = req.user.id;
+
+    const { email, number, newsletter } = req.body;
+    const [results] = await db.execute(
+      "UPDATE user SET email = ?, number = ?, newsletter = ? WHERE id = ?", [
+      email, number, newsletter, id
+    ]);
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.json({ message: "Data updated" });
   } catch (err) {
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({ error: "Email already exists" });
+    }
+
     console.error("Update user error:", err);
     res.status(500).json({ error: "Failed to update user data" });
   }
 });
 
-router.put("/password", validatePasswordChangeInput, changePassword, async (req, res) => {
+router.put("/password", authenticate, validatePasswordChangeInput, async (req, res) => {
   try {
-    res.json('Password changed');
+    const { oldPassword, newPassword } = req.body;
+
+    const id = req.user.id
+
+    const [users] = await db.execute("SELECT * FROM user WHERE id = ?", [
+      id,
+    ]);
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const user = users[0];
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+
+    const [result] = await db.execute(
+      "UPDATE user SET password = ? WHERE id = ?", [
+      hashedNewPassword, id
+    ]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Password change failed" });
+    }
+
+    return res.json({ message: "Password changed" });
   } catch (err) {
-    console.error("Change password error:", err);
-    res.status(500).json({ error: "Failed to change password" });
+    console.error("Password change error:", err);
+    return res.status(500).json({ error: "Failed to change password" });
   }
 });
 
-router.delete("/delete", deleteAuthentication, async (req, res) => {
+router.delete("/delete", authenticate, async (req, res) => {
   try {
-    res.json('User Deleted')
+    const id = req.user.id;
+
+    const [result] = await db.execute(
+      "DELETE FROM user WHERE id = ?", [
+      id,
+    ]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.json({ message: "User deleted" });
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ error: "Failed to delete user" });
+    console.error("Account deletion error:", err);
+    return res.status(500).json({ error: "Failed to delete user" });
   }
 })
 

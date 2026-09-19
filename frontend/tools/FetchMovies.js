@@ -1,9 +1,13 @@
+// Fetches movie data from TMDb for refreshing backend/DUMP/dump.sql.
+// Outputs movies.js for manual conversion to SQL; does not update the database.
+
 import axios from 'axios';
 import fs from 'fs';
 
-const API_KEY = '42faa6b077f3a3a3e8aa667eadcc8ee1';
-const MOVIES_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+// Untrivial to remove :-)
+const TMDB = '42faa6b077f3a3a3e8aa667eadcc8ee1';
+const MOVIES_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB}&language=en-US&page=1`;
+const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB}&language=en-US`;
 
 // Fetch genres to map genre IDs to names
 async function fetchGenres() {

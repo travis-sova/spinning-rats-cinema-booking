@@ -1,12 +1,11 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./db");
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Routes
 app.use("/api/movies", require("./routes/movies"));
@@ -21,18 +20,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-let date_time = new Date();
-
-// get current hours
-let hours = date_time.getHours();
-
-// get current minutes
-let minutes = date_time.getMinutes();
-
-// get current seconds
-let seconds = date_time.getSeconds();
-
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(hours + ":" + minutes + ":" + seconds + ` Server running on port ${PORT}`);
+  console.log(`${new Date().toLocaleTimeString()} Server running on port ${PORT}`);
 });

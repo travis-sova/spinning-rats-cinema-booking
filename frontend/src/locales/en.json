@@ -1,231 +1,243 @@
 {
-  "hello": "Hello World",
-  "welcome": "Spinning rat's cinema",
-  "nav": {
-    "movies": "Movies",
-    "cinemas": "Cinemas",
-    "events": "Events",
-    "news": "News",
-    "settings": "Settings",
-    "logout": "Logout",
-    "login": "Login",
-    "admin": "Admin",
-    "search": "Search",
-    "implemented": "Not implemented yet"
-  },
-  "footer": {
-    "best": "Best movies in town since 2024",
-    "socials": "Socials"
-  },
-  "cinemas": {
-    "1": {
-      "name": "Ülemiste Järve Underwater Cinema",
-      "seats": "Seats: 100",
-      "halls": "Halls: 1",
-      "description": "Located in the heart of Ülemiste Järv, Ülemiste Järve Underwater Cinema offers a unique movie-watching experience like no other. Dive into a world of cinematic magic while submerged beneath the serene waters, surrounded by panoramic views of the lake. With state-of-the-art sound and visual technology, this immersive venue provides a one-of-a-kind viewing atmosphere, blending nature's beauty with the latest in film entertainment. Whether you're enjoying a thrilling action flick or a tranquil drama, Ülemiste Järve Underwater Cinema takes you on a journey beyond the screen, leaving you captivated by the waters and the story."
+    "hello": "Hello World",
+    "welcome": "Spinning rat's cinema",
+    "nav": {
+        "movies": "Movies",
+        "cinemas": "Cinemas",
+        "events": "Events",
+        "news": "News",
+        "settings": "Settings",
+        "logout": "Logout",
+        "login": "Login",
+        "admin": "Admin",
+        "search": "Search",
+        "implemented": "Not implemented yet"
     },
-    "2": {
-      "name": "Õismäe ring Central Cinema",
-      "seats": "Seats: 200",
-      "halls": "Halls: 3",
-      "description": "Set in the iconic cylindrical structure of Õismäe Ring, the Central Cinema offers an architectural marvel combined with cutting-edge film technology. This modern cinema's circular design ensures that every seat in the house provides a perfect, unobstructed view of the screen. With a 360-degree immersive experience, the venue delivers crystal-clear visuals and rich sound, creating an unforgettable atmosphere for every film screening. Whether you're enjoying the latest blockbuster or an indie gem, Õismäe Ring Central Cinema's unique layout and state-of-the-art facilities make it the go-to spot for cinephiles seeking something extraordinary."
+    "footer": {
+        "best": "Best movies in town since 2024",
+        "socials": "Socials"
     },
-    "3": {
-      "name": "Balti Jaama Cinema",
-      "seats": "Seats: 150",
-      "halls": "Halls: 2",
-      "description": "Nestled in the heart of Tallinn, Balti Jaama Cinema is a vibrant cultural hub offering a dynamic film experience. Located near the historic Balti Jaam train station, this cinema blends contemporary design with the charm of its urban surroundings. Featuring the latest digital projection technology and immersive sound systems, Balti Jaama Cinema brings a wide range of films to life, from blockbusters to indie films. With its cozy atmosphere, stylish interiors, and convenient location, it’s the perfect spot to enjoy a movie while soaking in the vibrant energy of the city."
+    "cinemas": {
+        "X": {
+            "name": "Unknown Cinema",
+            "seats": "?",
+            "halls": "?",
+            "description": "?"
+        },
+        "3": {
+            "name": "Ülemiste Järve Underwater Cinema",
+            "seats": "Seats: 100",
+            "halls": "Halls: 1",
+            "description": "Located in the heart of Ülemiste Järv, Ülemiste Järve Underwater Cinema offers a unique movie-watching experience like no other. Dive into a world of cinematic magic while submerged beneath the serene waters, surrounded by panoramic views of the lake. With state-of-the-art sound and visual technology, this immersive venue provides a one-of-a-kind viewing atmosphere, blending nature's beauty with the latest in film entertainment. Whether you're enjoying a thrilling action flick or a tranquil drama, Ülemiste Järve Underwater Cinema takes you on a journey beyond the screen, leaving you captivated by the waters and the story."
+        },
+        "2": {
+            "name": "Õismäe ring Central Cinema",
+            "seats": "Seats: 200",
+            "halls": "Halls: 3",
+            "description": "Set in the iconic cylindrical structure of Õismäe Ring, the Central Cinema offers an architectural marvel combined with cutting-edge film technology. This modern cinema's circular design ensures that every seat in the house provides a perfect, unobstructed view of the screen. With a 360-degree immersive experience, the venue delivers crystal-clear visuals and rich sound, creating an unforgettable atmosphere for every film screening. Whether you're enjoying the latest blockbuster or an indie gem, Õismäe Ring Central Cinema's unique layout and state-of-the-art facilities make it the go-to spot for cinephiles seeking something extraordinary."
+        },
+        "1": {
+            "name": "Balti Jaama Cinema",
+            "seats": "Seats: 150",
+            "halls": "Halls: 2",
+            "description": "Nestled in the heart of Tallinn, Balti Jaama Cinema is a vibrant cultural hub offering a dynamic film experience. Located near the historic Balti Jaam train station, this cinema blends contemporary design with the charm of its urban surroundings. Featuring the latest digital projection technology and immersive sound systems, Balti Jaama Cinema brings a wide range of films to life, from blockbusters to indie films. With its cozy atmosphere, stylish interiors, and convenient location, it’s the perfect spot to enjoy a movie while soaking in the vibrant energy of the city."
+        }
+    },
+    "events": {
+        "seat": "Seats:",
+        "event": "Event:",
+        "total": "Total Price:",
+        "date": "Date:",
+        "time": "Time:",
+        "location": "Location:",
+        "purchase": "Purchase Tickets",
+        "coming": "Upcoming Events",
+        "seats": "Available Seats:",
+        "1": {
+            "title": "Premiere Night: Underwater Adventures",
+            "description": "Join us for the exclusive premiere of the latest underwater-themed blockbuster!",
+            "date": "2027-02-15",
+            "time": "7:00 PM",
+            "location": "Ülemiste Järve Underwater Cinema"
+        },
+        "2": {
+            "title": "Cylindrical Classics: Retro Night",
+            "description": "Experience the classics like never before in the iconic cylindrical cinema!",
+            "date": "2027-02-20",
+            "time": "8:00 PM",
+            "location": "Õismäe ring Central Cinema"
+        },
+        "3": {
+            "title": "Indie Film Festival",
+            "description": "Celebrate creativity with the best indie films from around the world.",
+            "date": "2027-03-01",
+            "time": "5:00 PM",
+            "location": "Balti Jaama Cinema"
+        }
+    },
+    "ticket": {
+        "seats": "Choose Your Seats:",
+        "screen": "SCREEN",
+        "total": "Total Price:",
+        "back": "Back",
+        "purchase": "Purchase Tickets",
+        "movie": "Movie:",
+        "seat": "Seats:",
+        "available": "Available Seats",
+        "adult": {
+            "label": "Regular ticket",
+            "description": ""
+        },
+        "student": {
+            "label": "Student ticket",
+            "description": "Applicable only with valid Student Card"
+        },
+        "senior": {
+            "label": "Senior ticket",
+            "description": "Applicable only with valid ID"
+        },
+        "child": {
+            "label": "Kids ticket",
+            "description": "Up to 12 years (incl.)"
+        }
+    },
+    "shows": {
+        "genres": {
+            "all": "All Genres",
+            "Adventure": "Adveture",
+            "Action": "Action",
+            "Comedy": "Comedy",
+            "Drama": "Drama",
+            "Family": "Family",
+            "Horror": "Horror",
+            "Romance": "Romance",
+            "Science Fiction": "Science Fiction",
+            "Fantasy": "Fantasy",
+            "Thriller": "Thriller",
+            "TV Movie": "TV Movie",
+            "Documentary": "Documentary",
+            "Animation": "Animation"
+        },
+        "loading": "Laen filme...",
+        "date": "All dates"
+    },
+    "card": {
+        "seats": "Available seats",
+        "watch": "Watch"
+    },
+    "movie": {
+        "seats": "Available seats",
+        "rating": "Rating",
+        "back": "Back",
+        "purchase": "Purchase Tickets",
+        "showtimes": "showtimes",
+        "no": "No showtimes available"
+    },
+    "news": {
+        "latest": "Latest News",
+        "more": "Read more",
+        "extended": "More About This Event",
+        "back": "Back to News",
+        "notFound": "Article not found",
+        "1": {
+            "title": "Grand Opening of Ülemiste Järve Underwater Cinema!",
+            "description": "Experience the world's first underwater cinema! Ülemiste Järve Underwater Cinema officially opens its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv.",
+            "extended": "The world’s first fully submerged cinema experience has finally arrived! The Ülemiste Järve Underwater Cinema has officially opened its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv. Designed for ultimate escapism, this state-of-the-art theater allows audiences to watch their favorite films while surrounded by the tranquil underwater world. Equipped with advanced waterproof sound systems and crystal-clear projection technology, every screening transforms into a visually stunning adventure. Beyond just movies, visitors can enjoy interactive light displays, a floating snack bar, and underwater relaxation zones before and after their screenings. Whether you're a film fanatic or someone looking for a new adventure, Ülemiste Järve Underwater Cinema is an unmissable experience!"
+        },
+        "2": {
+            "title": "360° Movie Magic at Õismäe Ring Central Cinema",
+            "description": "The futuristic Õismäe Ring Central Cinema revolutionizes film-watching with its unique circular design and state-of-the-art audio-visual technology. Get ready for an unparalleled 360-degree cinematic experience!",
+            "extended": "Movie-watching will never be the same again! The Õismäe Ring Central Cinema is changing the way audiences experience films with its revolutionary 360-degree circular design. Built within the iconic Õismäe Ring, this cinema ensures perfect visibility from every seat, making sure no one misses a moment of the action. Equipped with the latest Dolby Atmos surround sound and ultra-HD panoramic projection screens, this futuristic theater immerses audiences from every angle. Whether it’s a high-octane action flick or a mesmerizing sci-fi epic, Õismäe Ring Central Cinema brings every scene to life like never before. Get ready for a fully immersive experience—where the movie surrounds you, and reality fades away!"
+        },
+        "3": {
+            "title": "Balti Jaama Cinema Hosts Indie Film Festival",
+            "description": "Balti Jaama Cinema welcomes cinephiles to its highly anticipated Indie Film Festival, showcasing groundbreaking films from emerging talents worldwide. A must-visit event for film enthusiasts!",
+            "extended": "The annual Indie Film Festival has landed at Balti Jaama Cinema, bringing with it a carefully curated selection of groundbreaking independent films. This festival showcases a diverse range of movies, from experimental shorts to feature-length dramas, celebrating the creativity of emerging filmmakers from around the world. Aside from film screenings, attendees can participate in live Q&A sessions with directors, panel discussions, and exclusive behind-the-scenes showcases. Whether you’re a film enthusiast or a budding filmmaker, the Balti Jaama Indie Film Festival is the perfect opportunity to dive into the world of independent cinema. Don’t miss your chance to discover the next big thing in film!"
+        },
+        "4": {
+            "title": "Exclusive Midnight Screenings at Ülemiste Järve Underwater Cinema",
+            "description": "For thrill-seekers and night owls, Ülemiste Järve Underwater Cinema introduces exclusive midnight screenings, allowing audiences to watch blockbuster hits in a surreal underwater setting.",
+            "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
+        },
+        "5": {
+            "title": "Õismäe Ring Central Cinema Expands with VIP Lounges",
+            "description": "Cinema luxury at its finest! Õismäe Ring Central Cinema unveils new VIP lounges, offering plush seating, gourmet snacks, and a premium viewing experience like never before.",
+            "extended": "Prepare for the ultimate cinematic indulgence at Õismäe Ring Central Cinema! The theater has expanded its offerings with brand-new VIP lounges, designed to provide moviegoers with a luxurious and exclusive viewing experience. Equipped with plush reclining seats, gourmet snacks, and personalized service, these VIP lounges elevate movie-watching to a whole new level of comfort and sophistication. Whether you’re celebrating a special occasion or simply want to treat yourself, the VIP lounges at Õismäe Ring Central Cinema are the perfect setting for a memorable night at the movies. Sit back, relax, and enjoy the show in style!"
+        },
+        "6": {
+            "title": "Balti Jaama Cinema Introduces Classic Movie Nights",
+            "description": "Step back in time with Balti Jaama Cinema’s new Classic Movie Nights! Enjoy timeless films in a cozy atmosphere, bringing nostalgia and magic to the silver screen.",
+            "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
+        }
+    },
+    "settings": {
+        "settings": "My Settings",
+        "club": "Spinning rat's club member",
+        "email": "My Email",
+        "save": "Save",
+        "edit": "Edit",
+        "number": "My Number",
+        "password": "My Password",
+        "dob": "My Date of Birth",
+        "join": "Join newsletters",
+        "delete": "Delete account",
+        "pass": "Password",
+        "account": "Are you sure?",
+        "confirm": "Confirm that you want to delete your account",
+        "close": "Close",
+        "passOld": "Old password",
+        "passNew": "new password",
+        "passConfirm": "Confirm new password",
+        "change": "Change Password",
+        "loading": "Loading settings..."
+    },
+    "error": {
+        "found": "Page not found",
+        "sorry": "Sorry, we couldn’t find the page you’re looking for.",
+        "back:": "Go back Home"
+    },
+    "Login": {
+        "title": "Login to the Spinning rat's cinema",
+        "login": "Login",
+        "username": "Username",
+        "password": "Password",
+        "forgot": "forgot the password?",
+        "account": "Don’t have an account yet?",
+        "register": "Register"
+    },
+    "Register": {
+        "title": "Register to the Spinning rat's cinema",
+        "register": "Register",
+        "username": "Username",
+        "email": "Email",
+        "firstName": "first Name",
+        "lastName": "last Name",
+        "password": "Password",
+        "confirmPassword": "repeat password",
+        "gender": "gender",
+        "dob": "Date of Birth",
+        "registerBtn": "Register",
+        "login": "Already have an account?",
+        "loginBtn": "Login",
+        "number": "Phone number",
+        "requirements": "3-20 characters, letters, numbers and underscores only",
+        "weak": "Weak",
+        "medium": "medium",
+        "strong": "strong",
+        "req1": "At least 8 characters",
+        "req2": "1 uppercase letter",
+        "req3": "1 lowercase letter",
+        "req4": "1 number",
+        "noGender": "Prefer not to say",
+        "gen1": "Male",
+        "gen2": "Female",
+        "gen3": "Other",
+        "gen4": "Attack Helicopter"
+    },
+    "modal": {
+        "message": "Message!",
+        "deleted": "Account has been deleted",
+        "close": "Close",
+        "unknown": "Unknown action"
     }
-  },
-  "events": {
-    "seat": "Seats:",
-    "event": "Event:",
-    "total": "Total Price:",
-    "date": "Date:",
-    "time": "Time:",
-    "location": "Location:",
-    "purchase": "Purchase Tickets",
-    "coming": "Upcoming Events",
-    "seats": "Available Seats:",
-    "1": {
-      "title": "Premiere Night: Underwater Adventures",
-      "description": "Join us for the exclusive premiere of the latest underwater-themed blockbuster!",
-      "date": "2025-02-15",
-      "time": "7:00 PM",
-      "location": "Ülemiste Järve Underwater Cinema"
-    },
-    "2": {
-      "title": "Cylindrical Classics: Retro Night",
-      "description": "Experience the classics like never before in the iconic cylindrical cinema!",
-      "date": "2025-02-20",
-      "time": "8:00 PM",
-      "location": "Õismäe ring Central Cinema"
-    },
-    "3": {
-      "title": "Indie Film Festival",
-      "description": "Celebrate creativity with the best indie films from around the world.",
-      "date": "2025-03-01",
-      "time": "5:00 PM",
-      "location": "Balti Jaama Cinema"
-    }
-  },
-  "ticket": {
-    "seats": "Choose Your Seats:",
-    "screen": "SCREEN",
-    "total": "Total Price:",
-    "back": "Back",
-    "purchase": "Purchase Tickets",
-    "movie": "Movie:",
-    "seat": "Seats:",
-    "available": "Available Seats",
-    "adult": {
-      "label": "Regular ticket",
-      "description": ""
-    },
-    "student": {
-      "label": "Student ticket",
-      "description": "Applicable only with valid Student Card"
-    },
-    "senior": {
-      "label": "Senior ticket",
-      "description": "Applicable only with valid ID"
-    },
-    "child": {
-      "label": "Kids ticket",
-      "description": "Up to 12 years (incl.)"
-    }
-  },
-  "shows": {
-    "genres": {
-      "all": "All Genres",
-      "Adventure": "Adveture",
-      "Action": "Action",
-      "Comedy": "Comedy",
-      "Drama": "Drama",
-      "Horror": "Horror",
-      "Romance": "Romance",
-      "Science Fiction": "Science Fiction",
-      "Fantasy": "Fantasy",
-      "Thriller": "Thriller",
-      "Documentary": "Documentary",
-      "Animation": "Animation"
-    }
-  },
-  "card": {
-    "seats": "Available seats",
-    "watch": "Watch"
-  },
-  "movie": {
-    "seats": "Available seats",
-    "rating": "Rating",
-    "back": "Back",
-    "purchase": "Purchase Tickets",
-    "showtimes": "showtimes",
-    "no": "No showtimes available"
-  },
-  "news": {
-    "latest": "Latest News",
-    "more": "Read more",
-    "extended": "More About This Event",
-    "back": "Back to News",
-    "loading": "Loading...",
-    "1": {
-      "title": "Grand Opening of Ülemiste Järve Underwater Cinema!",
-      "description": "Experience the world's first underwater cinema! Ülemiste Järve Underwater Cinema officially opens its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv.",
-      "extended": "The world’s first fully submerged cinema experience has finally arrived! The Ülemiste Järve Underwater Cinema has officially opened its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv. Designed for ultimate escapism, this state-of-the-art theater allows audiences to watch their favorite films while surrounded by the tranquil underwater world. Equipped with advanced waterproof sound systems and crystal-clear projection technology, every screening transforms into a visually stunning adventure. Beyond just movies, visitors can enjoy interactive light displays, a floating snack bar, and underwater relaxation zones before and after their screenings. Whether you're a film fanatic or someone looking for a new adventure, Ülemiste Järve Underwater Cinema is an unmissable experience!"
-    },
-    "2": {
-      "title": "360° Movie Magic at Õismäe Ring Central Cinema",
-      "description": "The futuristic Õismäe Ring Central Cinema revolutionizes film-watching with its unique circular design and state-of-the-art audio-visual technology. Get ready for an unparalleled 360-degree cinematic experience!",
-      "extended": "Movie-watching will never be the same again! The Õismäe Ring Central Cinema is changing the way audiences experience films with its revolutionary 360-degree circular design. Built within the iconic Õismäe Ring, this cinema ensures perfect visibility from every seat, making sure no one misses a moment of the action. Equipped with the latest Dolby Atmos surround sound and ultra-HD panoramic projection screens, this futuristic theater immerses audiences from every angle. Whether it’s a high-octane action flick or a mesmerizing sci-fi epic, Õismäe Ring Central Cinema brings every scene to life like never before. Get ready for a fully immersive experience—where the movie surrounds you, and reality fades away!"
-    },
-    "3": {
-      "title": "Balti Jaama Cinema Hosts Indie Film Festival",
-      "description": "Balti Jaama Cinema welcomes cinephiles to its highly anticipated Indie Film Festival, showcasing groundbreaking films from emerging talents worldwide. A must-visit event for film enthusiasts!",
-      "extended": "The annual Indie Film Festival has landed at Balti Jaama Cinema, bringing with it a carefully curated selection of groundbreaking independent films. This festival showcases a diverse range of movies, from experimental shorts to feature-length dramas, celebrating the creativity of emerging filmmakers from around the world. Aside from film screenings, attendees can participate in live Q&A sessions with directors, panel discussions, and exclusive behind-the-scenes showcases. Whether you’re a film enthusiast or a budding filmmaker, the Balti Jaama Indie Film Festival is the perfect opportunity to dive into the world of independent cinema. Don’t miss your chance to discover the next big thing in film!"
-    },
-    "4": {
-      "title": "Exclusive Midnight Screenings at Ülemiste Järve Underwater Cinema",
-      "description": "For thrill-seekers and night owls, Ülemiste Järve Underwater Cinema introduces exclusive midnight screenings, allowing audiences to watch blockbuster hits in a surreal underwater setting.",
-      "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
-    },
-    "5": {
-      "title": "Õismäe Ring Central Cinema Expands with VIP Lounges",
-      "description": "Cinema luxury at its finest! Õismäe Ring Central Cinema unveils new VIP lounges, offering plush seating, gourmet snacks, and a premium viewing experience like never before.",
-      "extended": "Prepare for the ultimate cinematic indulgence at Õismäe Ring Central Cinema! The theater has expanded its offerings with brand-new VIP lounges, designed to provide moviegoers with a luxurious and exclusive viewing experience. Equipped with plush reclining seats, gourmet snacks, and personalized service, these VIP lounges elevate movie-watching to a whole new level of comfort and sophistication. Whether you’re celebrating a special occasion or simply want to treat yourself, the VIP lounges at Õismäe Ring Central Cinema are the perfect setting for a memorable night at the movies. Sit back, relax, and enjoy the show in style!"
-    },
-    "6": {
-      "title": "Balti Jaama Cinema Introduces Classic Movie Nights",
-      "description": "Step back in time with Balti Jaama Cinema’s new Classic Movie Nights! Enjoy timeless films in a cozy atmosphere, bringing nostalgia and magic to the silver screen.",
-      "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
-    }
-  },
-  "settings": {
-    "settings": "My Settings",
-    "club": "Spinning rat's club member",
-    "email": "My Email",
-    "save": "Save",
-    "edit": "Edit",
-    "number": "My Number",
-    "password": "My Password",
-    "dob": "My Date of Birth",
-    "join": "Join newsletters",
-    "delete": "Delete account",
-    "pass": "Password",
-    "account": "Are you sure?",
-    "confirm": "Confirm that you want to delete your account",
-    "close": "Close",
-    "passOld": "Old password",
-    "passNew": "new password",
-    "passConfirm": "Confirm new password"
-  },
-  "error": {
-    "found": "Page not found",
-    "sorry": "Sorry, we couldn’t find the page you’re looking for.",
-    "back:": "Go back Home"
-  },
-  "Login": {
-    "title": "Login to the Spinning rat's cinema",
-    "login": "Login",
-    "username": "Username",
-    "password": "Password",
-    "forgot": "forgot the password?",
-    "account": "Don’t have an account yet?",
-    "register": "Register"
-  },
-  "Register": {
-    "title": "Register to the Spinning rat's cinema",
-    "register": "Register",
-    "username": "Username",
-    "email": "Email",
-    "firstName": "first Name",
-    "lastName": "last Name",
-    "password": "Password",
-    "confirmPassword": "repeat password",
-    "gender": "gender",
-    "dob": "Date of Birth",
-    "registerBtn": "Register",
-    "login": "Already have an account?",
-    "loginBtn": "Login",
-    "number": "Phone number",
-    "requirements": "3-20 characters, letters, numbers and underscores only",
-    "weak": "Weak",
-    "medium": "medium",
-    "strong": "strong",
-    "req1": "At least 8 characters",
-    "req2": "1 uppercase letter",
-    "req3": "1 lowercase letter",
-    "req4": "1 number",
-    "noGender": "Prefer not to say",
-    "gen1": "Male",
-    "gen2": "Female",
-    "gen3": "Other",
-    "gen4": "Attack Helicopter"
-  },
-  "modal": {
-    "message": "Message!",
-    "deleted": "Account has been deleted",
-    "close": "Close",
-    "unknown": "Unknown action"
-  }
 }

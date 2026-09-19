@@ -1,232 +1,244 @@
 {
-  "hello": "Tere maailm",
-  "welcome": "Keerleva roti kino",
-  "nav": {
-    "movies": "Filmid",
-    "cinemas": "Kinod",
-    "events": "Üritused",
-    "news": "Uudised",
-    "settings": "Seaded",
-    "login": "Logi sisse",
-    "admin": "Admin",
-    "logout": "Logi välja",
-    "search": "Otsi",
-    "implemented": "Pole implementeeritud veel"
-  },
-  "footer": {
-    "best": "Parimad filmid linnas alates 2024",
-    "socials": "Sotsiaalmeedia"
-  },
-  "cinemas": {
-    "1": {
-      "name": "Ülemiste Järve Veealune Kino",
-      "seats": "Kohti: 100",
-      "halls": "Saale: 1",
-      "description": "Located in the heart of Ülemiste Järv, Ülemiste Järve Underwater Cinema offers a unique movie-watching experience like no other. Dive into a world of cinematic magic while submerged beneath the serene waters, surrounded by panoramic views of the lake. With state-of-the-art sound and visual technology, this immersive venue provides a one-of-a-kind viewing atmosphere, blending nature's beauty with the latest in film entertainment. Whether you're enjoying a thrilling action flick or a tranquil drama, Ülemiste Järve Underwater Cinema takes you on a journey beyond the screen, leaving you captivated by the waters and the story."
+    "hello": "Tere maailm",
+    "welcome": "Keerleva roti kino",
+    "nav": {
+        "movies": "Filmid",
+        "cinemas": "Kinod",
+        "events": "Üritused",
+        "news": "Uudised",
+        "settings": "Seaded",
+        "login": "Logi sisse",
+        "admin": "Admin",
+        "logout": "Logi välja",
+        "search": "Otsi",
+        "implemented": "Pole implementeeritud veel"
     },
-    "2": {
-      "name": "Õismäe ringi Keskuse Kino",
-      "seats": "Kohti: 200",
-      "halls": "Saale: 3",
-      "description": "Set in the iconic cylindrical structure of Õismäe Ring, the Central Cinema offers an architectural marvel combined with cutting-edge film technology. This modern cinema's circular design ensures that every seat in the house provides a perfect, unobstructed view of the screen. With a 360-degree immersive experience, the venue delivers crystal-clear visuals and rich sound, creating an unforgettable atmosphere for every film screening. Whether you're enjoying the latest blockbuster or an indie gem, Õismäe Ring Central Cinema's unique layout and state-of-the-art facilities make it the go-to spot for cinephiles seeking something extraordinary."
+    "footer": {
+        "best": "Parimad filmid linnas alates 2024",
+        "socials": "Sotsiaalmeedia"
     },
-    "3": {
-      "name": "Balti Jaama Kino",
-      "seats": "Kohti: 150",
-      "halls": "Saale: 2",
-      "description": "Nestled in the heart of Tallinn, Balti Jaama Cinema is a vibrant cultural hub offering a dynamic film experience. Located near the historic Balti Jaam train station, this cinema blends contemporary design with the charm of its urban surroundings. Featuring the latest digital projection technology and immersive sound systems, Balti Jaama Cinema brings a wide range of films to life, from blockbusters to indie films. With its cozy atmosphere, stylish interiors, and convenient location, it’s the perfect spot to enjoy a movie while soaking in the vibrant energy of the city."
+    "cinemas": {
+        "X": {
+            "name": "Tundmatu Kino",
+            "seats": "?",
+            "halls": "?",
+            "description": "?"
+        },
+        "3": {
+            "name": "Ülemiste Järve Veealune Kino",
+            "seats": "Kohti: 100",
+            "halls": "Saale: 1",
+            "description": "Ülemiste järve südames asuv Ülemiste järve veealune kino pakub ainulaadset ja võrratut filmivaatamiskogemust. Sukelduge kinomaagia maailma, viibides rahuliku vee all ja nautides panoraamvaateid järvele. Tänu tipptasemel heli- ja pilditehnoloogiale loob see kaasahaarav paik erakordse atmosfääri, ühendades looduse ilu ja uusima filmimeelelahutuse. Olgu tegemist põneva märulifilmi või rahuliku draamaga – Ülemiste järve veealune kino viib teid rännakule, mis ulatub kaugemale ekraanist, lummates teid nii veealuse maailma kui ka filmilooga."
+        },
+        "2": {
+            "name": "Õismäe ringi Keskuse Kino",
+            "seats": "Kohti: 200",
+            "halls": "Saale: 3",
+            "description": "Õismäe Ringi ikoonilises silindrikujulises hoones asuv Central Cinema ühendab endas arhitektuurilise meistriteose ja tipptasemel filmitehnoloogia. Kino kaasaegne ümmargune ehitus tagab, et igalt istekohalt avaneb suurepärane ja takistusteta vaade ekraanile. Tänu 360-kraadisele kaasahaaravale elamusele pakub kino kristallselget pilti ja rikkalikku heli, luues iga filmiseansi jaoks unustamatu atmosfääri. Olgu tegemist uusima kassahitiga või sõltumatu filmikunsti pärliga – Õismäe Ringi Central Cinema oma ainulaadse planeeringu ja tipptasemel tehniliste lahendustega on ideaalne sihtkoht filmisõpradele, kes otsivad midagi erakordset."
+        },
+        "1": {
+            "name": "Balti Jaama Kino",
+            "seats": "Kohti: 150",
+            "halls": "Saale: 2",
+            "description": "Tallinna südames asuv Balti Jaama kino on elav kultuurikeskus, mis pakub kaasahaaravaid filmielamusi. Ajaloolise Balti jaama vahetus läheduses paiknev kino ühendab endas kaasaegse disaini ja linnakeskkonnale omase võlu. Tänu uusimale digitaalsele projektsioonitehnoloogiale ja tipptasemel helisüsteemidele toob Balti Jaama kino vaatajateni mitmekesise valiku filme – alates suurtest kassahittidest kuni sõltumatu filmikunstini. Oma hubase õhkkonna, stiilse interjööri ja mugava asukohaga on see ideaalne paik filmi nautimiseks, samal ajal linna elavast energiast osa saades."
+        }
+    },
+    "events": {
+        "seat": "Kohad:",
+        "event": "Üritus:",
+        "total": "Hind Kokku:",
+        "date": "Kuupäev:",
+        "time": "Kell:",
+        "location": "Asukoht:",
+        "purchase": "Osta Piletid",
+        "coming": "Tulekul Üritused",
+        "seats": "Vabu Kohti:",
+        "1": {
+            "title": "Esilinastuse õhtu: veealused seiklused",
+            "description": "Liitu meiega uusima veealuse teemaga kassahiti eksklusiivsele esilinastusele!",
+            "date": "15-02-2027",
+            "time": "19:00",
+            "location": "Ülemiste Järve Veealune Kino"
+        },
+        "2": {
+            "title": "Silindrilised klassikud: retro-õhtu",
+            "description": "Koge klassikat nii nagu ei kunagi varem selles ikoonilises silindrikujulises kinos!",
+            "date": "20-02-2027",
+            "time": "16:00",
+            "location": "Õismäe ringi Keskuse Kino"
+        },
+        "3": {
+            "title": "Sõltumatu filmi festival",
+            "description": "Tähista loovust maailma parimate sõltumatute filmidega.",
+            "date": "01-03-2027",
+            "time": "17:00",
+            "location": "Balti Jaama Kino"
+        }
+    },
+    "ticket": {
+        "seats": "Vali Oma Istmed:",
+        "screen": "EKRAAN",
+        "total": "Hind Kokku:",
+        "back": "Tagasi",
+        "purchase": "Osta Piletid",
+        "movie": "Film:",
+        "seat": "Kohti:",
+        "available": "Vabu Kohti",
+        "adult": {
+            "label": "Tavaline pilet",
+            "description": ""
+        },
+        "student": {
+            "label": "Õpilase pilet",
+            "description": "Ainult õpilaspiletiga"
+        },
+        "senior": {
+            "label": "Pensionäri pilet",
+            "description": "Ainult tõendava dokumendiga"
+        },
+        "child": {
+            "label": "Laste pilet",
+            "description": "Kuni 12 (kaasa arvatud)"
+        }
+    },
+    "shows": {
+        "genres": {
+            "all": "Kõik žanrid",
+            "Adventure": "Seilus",
+            "Action": "Märul",
+            "Comedy": "Komöödia",
+            "Drama": "Draama",
+            "Family": "kogupere",
+            "Horror": "Õudus",
+            "Romance": "Romantika",
+            "Science Fiction": "Ulme",
+            "Fantasy": "Fantaasia",
+            "Thriller": "Põnevik",
+            "TV Movie": "Telefilm",
+            "Documentary": "Dokumentaal",
+            "Animation": "Animatsioon"
+        },
+        "loading": "Laen filme...",
+        "date": "Kõik kuupäevad"
+    },
+    "card": {
+        "seats": "Vabu Kohti",
+        "watch": "Vaata"
+    },
+    "movie": {
+        "seats": "Vabu Kohti",
+        "rating": "Hinnang",
+        "back": "Tagasi",
+        "purchase": "Osta Pileteid",
+        "showtimes": "Seansid",
+        "no": "Seansse ei ole"
+    },
+    "news": {
+        "latest": "Viimased Uudised",
+        "more": "Vaata Rohkem",
+        "extended": "Rohkem Selle Ürituse Kohta",
+        "back": "Tagasi Uudiste Lehele",
+        "notFound": "Artiklit ei leitud",
+        "1": {
+            "title": "Ülemiste Järve allveekino pidulik avamine!",
+            "description": "Kogege maailma esimest veealust kino! Ülemiste järve veealune kino avab ametlikult oma uksed, pakkudes filmisõpradele ainulaadset ja kaasahaaravat elamust Ülemiste järve rahulike vete all.",
+            "extended": "Maailma esimene täielikult veealune kinoelamus on lõpuks kohal! Ülemiste järve veealune kino on ametlikult uksed avanud, pakkudes filmisõpradele ainulaadset ja kaasahaaravat kogemust Ülemiste järve rahulike vete all. See tipptasemel kino on loodud pakkuma täielikku põgenemist argipäevast ning võimaldab publikul nautida oma lemmikfilme, olles samal ajal ümbritsetud rahulikust veealusest maailmast. Tänu täiustatud veekindlatele helisüsteemidele ja kristallselgele projektsioonitehnoloogiale muutub iga seanss visuaalselt lummavaks seikluseks. Lisaks filmidele saavad külastajad enne ja pärast seanssi nautida interaktiivseid valgusmänge, ujuvat suupistebaari ja veealuseid lõõgastusalasid. Olgu tegemist tõelise filmifanaatiku või uut seiklust otsiva inimesega – Ülemiste järve veealune kino on elamus, millest ei tasu ilma jääda!"
+        },
+        "2": {
+            "title": "360° Filmimaagia Õismäe Ringi Keskkinos",
+            "description": "Futuristlik Õismäe Ring Central Cinema muudab filmivaatamise revolutsiooniliseks oma ainulaadse ringikujulise arhitektuuri ja tipptasemel audiovisuaaltehnoloogiaga. Valmistu võrratuks 360-kraadiseks kinoelamuseks!",
+            "extended": "Filmivaatamine ei ole enam kunagi endine! Õismäe Ring Central Cinema muudab oma revolutsioonilise 360-kraadise ringikujulise lahendusega seda, kuidas publik filme kogeb. Ikoonilisse Õismäe Ringi hoonesse rajatud kino tagab suurepärase nähtavuse igalt istekohalt, nii et ükski tegevushetk ei jääks märkamata. Tänu uusimale Dolby Atmos ruumilisele helile ja ülimalt kvaliteetsetele panoraamsetele Ultra-HD ekraanidele pakub see futuristlik kino publikule igakülgselt kaasahaaravat elamust. Olgu tegemist tempoka märulifilmi või lummava ulmeeposega – Õismäe Ring Central Cinema toob iga stseeni ellu viisil, mida pole varem kogetud. Valmistu täielikuks elamuseks, kus film ümbritseb sind ja reaalsus hajub tagaplaanile!"
+        },
+        "3": {
+            "title": "Balti Jaama Kino võõrustab indiefilmide festivali",
+            "description": "Balti Jaama kino ootab filmisõpru oma kauaoodatud sõltumatute filmide festivalile, kus linastuvad uuenduslikud linateosed nii kodu- kui ka välismaistelt tõusvatelt talentidelt. See on sündmus, millest filmientusiastid ei tohiks ilma jääda!",
+            "extended": "Balti Jaama kinos on alanud iga-aastane sõltumatu filmi festival, mis toob vaatajateni hoolikalt valitud ja uuenduslikud sõltumatud linateosed. Festival pakub mitmekesist valikut filme – alates eksperimentaalsetest lühifilmidest kuni täispikkade draamadeni –, tähistades nii kogu maailmast pärit tõusvate filmitegijate loovust. Lisaks filmiseanssidele saavad huvilised osa võtta reaalajas toimuvatest vestlustest režissööridega, paneeldiskussioonidest ja eksklusiivsetest sissevaadetest filmide valmimisprotsessi. Olgu sa filmientusiast või alles alustav filmitegija – Balti Jaama sõltumatu filmi festival on suurepärane võimalus sukelduda sõltumatu kino maailma. Ära maga maha võimalust avastada filmimaailma järgmine suur tegija!"
+        },
+        "4": {
+            "title": "Eksklusiivsed keskööseansid Ülemiste Järve allveekinos",
+            "description": "Põnevuseotsijatele ja ööinimestele mõeldud Ülemiste järve veealune kino toob vaatajateni eksklusiivsed südaöised seansid, võimaldades nautida kassahitte sürreaalses veealuses keskkonnas.",
+            "extended": "Kogege kinokunsti kuldajastu võlu Balti Jaama kino klassikaliste filmide õhtutel! Rännake ajas tagasi tänu hoolikalt valitud ajatutele linateostele, mille hulka kuuluvad nii Hollywoodi klassika kui ka rahvusvahelised meistriteosed. Hubases ja intiimses õhkkonnas toimuvad seansid tekitavad nostalgiat ja imetlust, võimaldades publikul taasavastada kinokunsti ajaloo ilu. Olgu tegemist paadunud filmifänni või lihtsalt hea filmi nautijaga – Balti Jaama kino klassikaliste filmide õhtud on suurepärane viis tähistada filmikunsti ja selle jutustamisjõudu. Tulge meiega unustamatule rännakule läbi filmiajaloo!"
+        },
+        "5": {
+            "title": "Õismäe Ringi Keskkino laieneb VIP-lounge'idega",
+            "description": "Kinoelamuse tippklass! Õismäe Ring Central Cinema avab uued VIP-saalid, pakkudes luksuslikke istmeid, gurmeesuupisteid ja esmaklassilist vaatamiskogemust, millesarnast pole varem nähtud.",
+            "extended": "Valmistu ülimaks kinoelamuseks Õismäe Ring Central Cinemas! Kino on oma teenusevalikut täiendanud uhiuute VIP-saalidega, mis pakuvad külastajatele luksuslikku ja eksklusiivset vaatamiskogemust. Tänu mugavatele reguleeritavatele tugitoolidele, gurmeesuupistetele ja personaalsele teenindusele viivad need VIP-saalid filmivaatamise täiesti uuele mugavuse ja elegantsi tasemele. Olgu tegemist erilise sündmuse tähistamise või lihtsalt sooviga endale midagi head lubada – Õismäe Ring Central Cinema VIP-saalid on ideaalne paik meeldejäävaks kinoõhtuks. Võta mugavalt istet, lõõgastu ja naudi filmi stiilselt!"
+        },
+        "6": {
+            "title": "Balti Jaama kino toob publiku ette klassikaliste filmide õhtud.",
+            "description": "Rända ajas tagasi Balti Jaama kino uute klassikaliste filmide õhtutega! Naudi ajatuid filme hubases õhkkonnas ning koge nostalgilist võlu ja filmimaagiat.",
+            "extended": "Kogege kinokunsti kuldajastu võlu Balti Jaama kino klassikaliste filmide õhtutel! Rännake ajas tagasi tänu hoolikalt valitud ajatutele linateostele, mille hulka kuuluvad nii Hollywoodi klassika kui ka rahvusvahelised meistriteosed. Hubases ja intiimses õhkkonnas toimuvad seansid tekitavad nostalgiat ja imetlust, võimaldades publikul taasavastada kinokunsti ajaloo ilu. Olgu tegemist paadunud filmifänni või lihtsalt hea filmi nautijaga – Balti Jaama kino klassikaliste filmide õhtud on suurepärane viis tähistada filmikunsti ja selle jutustamisjõudu. Tulge meiega unustamatule rännakule läbi filmiajaloo!"
+        }
+    },
+    "settings": {
+        "settings": "Minu Seaded",
+        "club": "Keerleva Roti Klubiliige",
+        "email": "Minu Meil",
+        "save": "Salvesta",
+        "edit": "Redigeeri",
+        "number": "Minu Number",
+        "password": "Minu Parool",
+        "dob": "Minu Sünnikuupäev",
+        "join": "Liitu uudiskirjaga",
+        "delete": "Kustuta konto",
+        "pass": "Parool",
+        "account": "Oled sa kindel?",
+        "confirm": "Kinnita, et soovida oma konto sulgeda",
+        "close": "Sulge",
+        "passOld": "Vana parool",
+        "passNew": "Uus parool",
+        "passConfirm": "Kinnita uus parool",
+        "change": "Vaheta Parooli",
+        "loading": "Laen Seadeid..."
+    },
+    "error": {
+        "found": "Lehte ei leitud",
+        "sorry": "Vabandame, me ei leidnud lehte, mida otsite.",
+        "back": "Mine tagasi Kodulehele"
+    },
+    "Login": {
+        "title": "Logi sisse Keerleva Roti Kinno",
+        "login": "Logi sisse",
+        "username": "Kasutajanimi",
+        "password": "Parool",
+        "forgot": "Unustasid parooli?",
+        "account": "Kas sul pole veel kontot?",
+        "register": "Registreeri",
+        "loginBtn": "Logi sisse"
+    },
+    "Register": {
+        "title": "Registreeri Keerleva Roti Kinno",
+        "register": "Registreeri",
+        "username": "Kasutajanimi",
+        "email": "E-mail",
+        "firstName": "Eesnimi",
+        "lastName": "Perekonnanimi",
+        "password": "Parool",
+        "confirmPassword": "Korda parooli",
+        "gender": "sugu",
+        "dob": "Sünnikuupäev",
+        "registerBtn": "Registreeri",
+        "login": "Juba registreeritud?",
+        "loginBtn": "Logi sisse",
+        "number": "telefoninumber",
+        "requirements": "Ainult 3–20 tähemärki, tähti, numbreid ja allkriipse",
+        "weak": "Nõrk",
+        "medium": "Keskmine",
+        "strong": "Tugev",
+        "req1": "Peab olema vähemalt 8 tähemärki",
+        "req2": "Peab olema vähemalt 1 suur täht",
+        "req3": "Peab olema vähemalt 1 väike täht",
+        "req4": "Peab olema vähemalt 1 number",
+        "noGender": "Eelistan mitte öelda",
+        "gen1": "Mees",
+        "gen2": "Naine",
+        "gen3": "Muu",
+        "gen4": "Rünnakuhelikopter"
+    },
+    "modal": {
+        "message": "Sõnum!",
+        "deleted": "Konto on kustutatud",
+        "close": "Sulge",
+        "unknown": "Teadmata tegevus"
     }
-  },
-  "events": {
-    "seat": "Kohad:",
-    "event": "Üritus:",
-    "total": "Hind Kokku:",
-    "date": "Kuupäev:",
-    "time": "Kell:",
-    "location": "Asukoht:",
-    "purchase": "Osta Piletid",
-    "coming": "Tulekul Üritused",
-    "seats": "Vabu Kohti:",
-    "1": {
-      "title": "Premiere Night: Underwater Adventures",
-      "description": "Join us for the exclusive premiere of the latest underwater-themed blockbuster!",
-      "date": "2025-02-15",
-      "time": "7:00 PM",
-      "location": "Ülemiste Järve Veealune Kino"
-    },
-    "2": {
-      "title": "Cylindrical Classics: Retro Night",
-      "description": "Experience the classics like never before in the iconic cylindrical cinema!",
-      "date": "2025-02-20",
-      "time": "8:00 PM",
-      "location": "Õismäe ringi Keskuse Kino"
-    },
-    "3": {
-      "title": "Indie Film Festival",
-      "description": "Celebrate creativity with the best indie films from around the world.",
-      "date": "2025-03-01",
-      "time": "5:00 PM",
-      "location": "Balti Jaama Kino"
-    }
-  },
-  "ticket": {
-    "seats": "Vali Oma Istmed:",
-    "screen": "EKRAAN",
-    "total": "Hind Kokku:",
-    "back": "Tagasi",
-    "purchase": "Osta Piletid",
-    "movie": "Film:",
-    "seat": "Kohti:",
-    "available": "Vabu Kohti",
-    "adult": {
-      "label": "Tavaline pilet",
-      "description": ""
-    },
-    "student": {
-      "label": "Õpilase pilet",
-      "description": "Ainult õpilaspiletiga"
-    },
-    "senior": {
-      "label": "Pensionäri pilet",
-      "description": "Ainult tõendava dokumendiga"
-    },
-    "child": {
-      "label": "Laste pilet",
-      "description": "Kuni 12 (kaasa arvatud)"
-    }
-  },
-  "shows": {
-    "genres": {
-      "all": "Kõik žanrid",
-      "Adventure": "Seilus",
-      "Action": "Märul",
-      "Comedy": "Komöödia",
-      "Drama": "Draama",
-      "Horror": "Õudus",
-      "Romance": "Romantika",
-      "Science Fiction": "Ulme",
-      "Fantasy": "Fantaasia",
-      "Thriller": "Põnevik",
-      "Documentary": "Dokumentaal",
-      "Animation": "Animatsioon"
-    }
-  },
-  "card": {
-    "seats": "Vabu Kohti",
-    "watch": "Vaata"
-  },
-  "movie": {
-    "seats": "Vabu Kohti",
-    "rating": "Hinnang",
-    "back": "Tagasi",
-    "purchase": "Osta Pileteid",
-    "showtimes": "Seansid",
-    "no": "Seansse ei ole"
-  },
-  "news": {
-    "latest": "Viimased Uudised",
-    "more": "Vaata Rohkem",
-    "extended": "Rohkem Selle Ürituse Kohta",
-    "back": "Tagasi Uudiste Lehele",
-    "loading": "Laen...",
-    "1": {
-      "title": "Grand Opening of Ülemiste Järve Underwater Cinema!",
-      "description": "Experience the world's first underwater cinema! Ülemiste Järve Underwater Cinema officially opens its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv.",
-      "extended": "The world’s first fully submerged cinema experience has finally arrived! The Ülemiste Järve Underwater Cinema has officially opened its doors, offering movie lovers a one-of-a-kind immersive experience beneath the serene waters of Ülemiste Järv. Designed for ultimate escapism, this state-of-the-art theater allows audiences to watch their favorite films while surrounded by the tranquil underwater world. Equipped with advanced waterproof sound systems and crystal-clear projection technology, every screening transforms into a visually stunning adventure. Beyond just movies, visitors can enjoy interactive light displays, a floating snack bar, and underwater relaxation zones before and after their screenings. Whether you're a film fanatic or someone looking for a new adventure, Ülemiste Järve Underwater Cinema is an unmissable experience!"
-    },
-    "2": {
-      "title": "360° Movie Magic at Õismäe Ring Central Cinema",
-      "description": "The futuristic Õismäe Ring Central Cinema revolutionizes film-watching with its unique circular design and state-of-the-art audio-visual technology. Get ready for an unparalleled 360-degree cinematic experience!",
-      "extended": "Movie-watching will never be the same again! The Õismäe Ring Central Cinema is changing the way audiences experience films with its revolutionary 360-degree circular design. Built within the iconic Õismäe Ring, this cinema ensures perfect visibility from every seat, making sure no one misses a moment of the action. Equipped with the latest Dolby Atmos surround sound and ultra-HD panoramic projection screens, this futuristic theater immerses audiences from every angle. Whether it’s a high-octane action flick or a mesmerizing sci-fi epic, Õismäe Ring Central Cinema brings every scene to life like never before. Get ready for a fully immersive experience—where the movie surrounds you, and reality fades away!"
-    },
-    "3": {
-      "title": "Balti Jaama Cinema Hosts Indie Film Festival",
-      "description": "Balti Jaama Cinema welcomes cinephiles to its highly anticipated Indie Film Festival, showcasing groundbreaking films from emerging talents worldwide. A must-visit event for film enthusiasts!",
-      "extended": "The annual Indie Film Festival has landed at Balti Jaama Cinema, bringing with it a carefully curated selection of groundbreaking independent films. This festival showcases a diverse range of movies, from experimental shorts to feature-length dramas, celebrating the creativity of emerging filmmakers from around the world. Aside from film screenings, attendees can participate in live Q&A sessions with directors, panel discussions, and exclusive behind-the-scenes showcases. Whether you’re a film enthusiast or a budding filmmaker, the Balti Jaama Indie Film Festival is the perfect opportunity to dive into the world of independent cinema. Don’t miss your chance to discover the next big thing in film!"
-    },
-    "4": {
-      "title": "Exclusive Midnight Screenings at Ülemiste Järve Underwater Cinema",
-      "description": "For thrill-seekers and night owls, Ülemiste Järve Underwater Cinema introduces exclusive midnight screenings, allowing audiences to watch blockbuster hits in a surreal underwater setting.",
-      "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
-    },
-    "5": {
-      "title": "Õismäe Ring Central Cinema Expands with VIP Lounges",
-      "description": "Cinema luxury at its finest! Õismäe Ring Central Cinema unveils new VIP lounges, offering plush seating, gourmet snacks, and a premium viewing experience like never before.",
-      "extended": "Prepare for the ultimate cinematic indulgence at Õismäe Ring Central Cinema! The theater has expanded its offerings with brand-new VIP lounges, designed to provide moviegoers with a luxurious and exclusive viewing experience. Equipped with plush reclining seats, gourmet snacks, and personalized service, these VIP lounges elevate movie-watching to a whole new level of comfort and sophistication. Whether you’re celebrating a special occasion or simply want to treat yourself, the VIP lounges at Õismäe Ring Central Cinema are the perfect setting for a memorable night at the movies. Sit back, relax, and enjoy the show in style!"
-    },
-    "6": {
-      "title": "Balti Jaama Cinema Introduces Classic Movie Nights",
-      "description": "Step back in time with Balti Jaama Cinema’s new Classic Movie Nights! Enjoy timeless films in a cozy atmosphere, bringing nostalgia and magic to the silver screen.",
-      "extended": "Experience the magic of cinema’s golden age at Balti Jaama Cinema’s Classic Movie Nights! Transport yourself back in time with a carefully curated selection of timeless films, ranging from Hollywood classics to international masterpieces. Set in a cozy and intimate atmosphere, these screenings evoke nostalgia and wonder, allowing audiences to rediscover the beauty of cinema’s past. Whether you’re a seasoned film buff or a casual moviegoer, Classic Movie Nights at Balti Jaama Cinema are the perfect way to celebrate the art of storytelling on the silver screen. Join us for an unforgettable journey through the history of cinema!"
-    }
-  },
-  "settings": {
-    "settings": "Minu Seaded",
-    "club": "Keerleva Roti Klubiliige",
-    "email": "Minu Meil",
-    "save": "Salvesta",
-    "edit": "Redigeeri",
-    "number": "Minu Number",
-    "password": "Minu Parool",
-    "dob": "Minu Sünnikuupäev",
-    "join": "Liitu uudiskirjaga",
-    "delete": "Kustuta konto",
-    "pass": "Parool",
-    "account": "Oled sa kindel?",
-    "confirm": "Kinnita, et soovida oma konto sulgeda",
-    "close": "Sulge",
-    "passOld": "Vana parool",
-    "passNew": "Uus parool",
-    "passConfirm": "Kinnita uus parool"
-  },
-  "error": {
-    "found": "Lehte ei leitud",
-    "sorry": "Vabandame, me ei leidnud lehte, mida otsite.",
-    "back": "Mine tagasi Kodulehele"
-  },
-  "Login": {
-    "title": "Logi sisse Keerleva Roti Kinno",
-    "login": "Logi sisse",
-    "username": "Kasutajanimi",
-    "password": "Parool",
-    "forgot": "Unustasid parooli?",
-    "account": "Kas sul pole veel kontot?",
-    "register": "Registreeri",
-    "loginBtn": "Logi sisse"
-  },
-  "Register": {
-    "title": "Registreeri Keerleva Roti Kinno",
-    "register": "Registreeri",
-    "username": "Kasutajanimi",
-    "email": "E-mail",
-    "firstName": "Eesnimi",
-    "lastName": "Perekonnanimi",
-    "password": "Parool",
-    "confirmPassword": "Korda parooli",
-    "gender": "sugu",
-    "dob": "Sünnikuupäev",
-    "registerBtn": "Registreeri",
-    "login": "Juba registreeritud?",
-    "loginBtn": "Logi sisse",
-    "number": "telefoninumber",
-    "requirements": "Ainult 3–20 tähemärki, tähti, numbreid ja allkriipse",
-    "weak": "Nõrk",
-    "medium": "Keskmine",
-    "strong": "Tugev",
-    "req1": "Peab olema vähemalt 8 tähemärki",
-    "req2": "Peab olema vähemalt 1 suur täht",
-    "req3": "Peab olema vähemalt 1 väike täht",
-    "req4": "Peab olema vähemalt 1 number",
-    "noGender": "Eelistan mitte öelda",
-    "gen1": "Mees",
-    "gen2": "Naine",
-    "gen3": "Muu",
-    "gen4": "Rünnakuhelikopter"
-  },
-  "modal": {
-    "message": "Sõnum!",
-    "deleted": "Konto on kustutatud",
-    "close": "Sulge",
-    "unknown": "Teadmata tegevus"
-  }
 }

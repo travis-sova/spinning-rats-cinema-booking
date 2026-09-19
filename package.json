@@ -4,19 +4,19 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"all": "npm install && cd frontend && npm install && cd .. && cd backend && npm install",
-		"start": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+		"setup": "npm ci && npm --prefix frontend ci && npm --prefix backend ci",
+		"start": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\""
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/travis-sova/TA22E-A1-projekt"
+		"url": "git+https://github.com/travis-sova/spinning-rats-cinema-booking"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/travis-sova/TA22E-A1-projekt/issues"
+		"url": "https://github.com/travis-sova/spinning-rats-cinema-booking/issues"
 	},
-	"homepage": "https://github.com/travis-sova/TA22E-A1-projekt#readme",
+	"homepage": "https://github.com/travis-sova/spinning-rats-cinema-booking#readme",
 	"devDependencies": {
 		"concurrently": "^9.1.2"
 	}

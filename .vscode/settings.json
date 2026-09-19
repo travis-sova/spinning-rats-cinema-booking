@@ -1,26 +1,4 @@
 {
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    "config.md": "*.json,*.config.js,*.config.ts,env.d.ts,.editorconfig"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "always"
-  },
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "colorize.include": [
-    "**/tailwind.config.js",
-    "**/*.css",
-    "**/*.scss",
-    "**/*.sass",
-    "**/*.less",
-    "**/*.styl"
-  ],
-  "colorize.decoration_type": "square-dot"
+    // Tailwind V3 false positive
+    "css.lint.unknownAtRules": "ignore"
 }
