@@ -96,6 +96,10 @@
                     {{ $t('ticket.total') }} {{ totalPrice }} €
                 </div>
 
+                <div v-if="purchaseError" role="alert" class="alert alert-error mt-4">
+                    <span>{{ purchaseError }}</span>
+                </div>
+
                 <div class="mt-6 flex justify-center gap-4">
                     <router-link :to="'/events'" class="btn btn-lg btn-accent">
                         {{ $t('ticket.back') }}
@@ -103,9 +107,10 @@
                     <button
                         type="button"
                         class="btn btn-lg btn-accent"
-                        :disabled="!canPurchase"
+                        :disabled="!canPurchase || isSubmitting"
                         @click="purchase"
                     >
+                        <span v-if="isSubmitting" class="loading loading-spinner loading-sm"></span>
                         {{ $t('ticket.purchase') }}
                     </button>
                 </div>
@@ -117,6 +122,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 import { events } from '../data/events.ts';
 
 import type { Ticket } from '@/types/ticket.ts';
@@ -127,21 +133,37 @@ const router = useRouter();
 const route = useRoute();
 const eventId = Number(route.params.id);
 
+const isSubmitting = ref(false);
+const purchaseError = ref('');
+
 const canPurchase = computed(
     () => totalTickets.value > 0 && selectedSeats.value.length === totalTickets.value,
 );
 
-function purchase() {
-    if (!canPurchase.value || !event) return;
+async function purchase() {
+    if (!canPurchase.value || !event || isSubmitting.value) return;
 
-    router.push({
-        name: 'EventPurchase',
-        params: { id: event.id },
-        query: {
-            total: totalPrice.value,
-            seats: selectedSeats.value.join(','),
-        },
-    });
+    const types = tickets.flatMap((t) =>
+        Array.from({ length: ticketCounts.value[t.type] }, () => t.type),
+    );
+    const items = types.map((type, i) => ({ type, seat: selectedSeats.value[i] ?? '' }));
+
+    isSubmitting.value = true;
+    purchaseError.value = '';
+    try {
+        const { data } = await axios.post<{ id: string }>('http://localhost:3000/api/orders', {
+            kind: 'event',
+            itemId: event.id,
+            tickets: items,
+        });
+        router.push({ name: 'EventPurchase', params: { orderId: data.id } });
+    } catch (err) {
+        purchaseError.value = axios.isAxiosError(err)
+            ? err.response?.data?.error || err.message
+            : 'Could not reserve seats';
+    } finally {
+        isSubmitting.value = false;
+    }
 }
 
 const event = events.find((e) => e.id === eventId);
@@ -155,25 +177,25 @@ const tickets: Ticket[] = [
     {
         type: 'Adult',
         label: 'ticket.adult.label',
-        price: 20.99,
+        price: 10.6,
         description: 'ticket.adult.description',
     },
     {
         type: 'Student',
         label: 'ticket.student.label',
-        price: 15.49,
+        price: 8.38,
         description: 'ticket.student.description',
     },
     {
         type: 'Senior',
         label: 'ticket.senior.label',
-        price: 15.49,
+        price: 6.45,
         description: 'ticket.senior.description',
     },
     {
         type: 'Child',
         label: 'ticket.child.label',
-        price: 10.6,
+        price: 6.45,
         description: 'ticket.child.description',
     },
 ];

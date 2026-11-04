@@ -177,7 +177,44 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `number`, `newsletter`, `fname`, `sname`, `dob`, `sex`, `perms`) VALUES
 (1, 'admin', '$2b$12$nd0U2wQDKu6M8dl/NzpUKOq6KJN78oF0PqL43Z.YG0ZlRaRpM/n.y', 'a@a.com', '+123', 1, 'admin', 'admin', '2010-01-01', 'attack_helicopter', 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
 UNLOCK TABLES;
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `id` char(36) NOT NULL,
+    `kind` ENUM('show', 'event') NOT NULL,
+    `item_id` int NOT NULL,
+    `total_cents` int NOT NULL,
+    `status` ENUM('pending', 'paid') NOT NULL DEFAULT 'pending',
+    `card_last4` char(4) DEFAULT NULL,
+    `expires_at` datetime DEFAULT NULL,
+    `paid_at` datetime DEFAULT NULL,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX (`kind`, `item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `order_seats`
+--
+
+DROP TABLE IF EXISTS `order_seats`;
+CREATE TABLE `order_seats` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `order_id` char(36) NOT NULL,
+    `seat` varchar(10) NOT NULL,
+    `ticket_type` varchar(10) NOT NULL,
+    `ticket_code` char(9) NULL UNIQUE,
+    `price_cents` int NOT NULL,
+    FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+    PRIMARY KEY (`id`),
+    INDEX (`seat`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

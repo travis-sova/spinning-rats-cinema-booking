@@ -19,5 +19,8 @@
 	"homepage": "https://github.com/travis-sova/spinning-rats-cinema-booking#readme",
 	"devDependencies": {
 		"concurrently": "^9.1.2"
+	},
+	"dependencies": {
+		"mysql": "^2.18.1"
 	}
 }

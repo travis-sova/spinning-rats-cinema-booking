@@ -14,6 +14,7 @@ app.use("/api/shows", require("./routes/shows"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/content", require("./routes/content"));
+app.use("/api/orders", require("./routes/orders"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

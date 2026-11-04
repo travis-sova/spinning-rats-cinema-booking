@@ -101,6 +101,10 @@
                 {{ $t('ticket.total') }} {{ totalPrice }} €
             </div>
 
+            <div v-if="purchaseError" role="alert" class="alert alert-error mt-4">
+                <span>{{ purchaseError }}</span>
+            </div>
+
             <div class="mt-6 flex justify-center gap-4">
                 <router-link
                     :to="{ name: 'MovieDetails', params: { id: show.movie } }"
@@ -111,9 +115,10 @@
                 <button
                     type="button"
                     class="btn btn-lg btn-accent"
-                    :disabled="!canPurchase"
+                    :disabled="!canPurchase || isSubmitting"
                     @click="purchase"
                 >
+                    <span v-if="isSubmitting" class="loading loading-spinner loading-sm"></span>
                     {{ $t('ticket.purchase') }}
                 </button>
             </div>
@@ -135,6 +140,9 @@ const show = ref<Show | null>(null);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 
+const isSubmitting = ref(false);
+const purchaseError = ref('');
+
 const router = useRouter();
 const route = useRoute();
 const showId = Number(route.params.id);
@@ -143,17 +151,31 @@ const canPurchase = computed(
     () => totalTickets.value > 0 && selectedSeats.value.length === totalTickets.value,
 );
 
-function purchase() {
-    if (!canPurchase.value || !show.value) return;
+async function purchase() {
+    if (!canPurchase.value || !show.value || isSubmitting.value) return;
 
-    router.push({
-        name: 'Purchase',
-        params: { id: show.value.id },
-        query: {
-            total: totalPrice.value,
-            seats: selectedSeats.value.join(','),
-        },
-    });
+    // Pair the chosen seats with ticket types: Adult first, then Student, and so on.
+    const types = tickets.flatMap((t) =>
+        Array.from({ length: ticketCounts.value[t.type] }, () => t.type),
+    );
+    const items = types.map((type, i) => ({ type, seat: selectedSeats.value[i] ?? '' }));
+
+    isSubmitting.value = true;
+    purchaseError.value = '';
+    try {
+        const { data } = await axios.post<{ id: string }>('http://localhost:3000/api/orders', {
+            kind: 'show',
+            itemId: show.value.id,
+            tickets: items,
+        });
+        router.push({ name: 'Purchase', params: { orderId: data.id } });
+    } catch (err) {
+        purchaseError.value = axios.isAxiosError(err)
+            ? err.response?.data?.error || err.message
+            : 'Could not reserve seats';
+    } finally {
+        isSubmitting.value = false;
+    }
 }
 
 const fetchData = async () => {

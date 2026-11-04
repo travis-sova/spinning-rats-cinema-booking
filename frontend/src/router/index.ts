@@ -11,7 +11,6 @@ import My404Error from '@/views/My404Error.vue';
 import MyMovieDetails from '@/views/MyMovieDetails.vue';
 import MyPurchase from '@/views/MyPurchase.vue';
 import MyEventTickets from '@/views/MyEventTickets.vue';
-import MyEventPurchase from '@/views/MyEventPurchase.vue';
 import MyNewsDetails from '@/views/MyNewsDetails.vue';
 import MyAdminView from '@/views/MyAdminView.vue';
 import MyLogin from '@/views/auth/MyLogin.vue';
@@ -28,7 +27,7 @@ const router = createRouter({
 
         { path: '/Movie/tickets/:id', name: 'Tickets', component: MyTickets, props: true },
         { path: '/Movies/:id', name: 'MovieDetails', component: MyMovieDetails, props: true },
-        { path: '/Movie/:id/purchase', name: 'Purchase', component: MyPurchase, props: true },
+        { path: '/Movie/purchase/:orderId', name: 'Purchase', component: MyPurchase, props: true },
 
         {
             path: '/Event/tickets/:id',
@@ -37,9 +36,9 @@ const router = createRouter({
             props: true,
         },
         {
-            path: '/Event/:id/purchase',
+            path: '/Event/purchase/:orderId',
             name: 'EventPurchase',
-            component: MyEventPurchase,
+            component: MyPurchase,
             props: true,
         },
 
