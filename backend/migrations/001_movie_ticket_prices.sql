@@ -1,0 +1,5 @@
+ALTER TABLE movies
+  ADD COLUMN adult_price_cents INT NOT NULL DEFAULT 1060,
+  ADD COLUMN student_price_cents INT NOT NULL DEFAULT 838,
+  ADD COLUMN senior_price_cents INT NOT NULL DEFAULT 645,
+  ADD COLUMN child_price_cents INT NOT NULL DEFAULT 645;

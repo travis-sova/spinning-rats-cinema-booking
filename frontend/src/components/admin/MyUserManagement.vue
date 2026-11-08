@@ -1,28 +1,34 @@
 <template>
     <div class="user-management">
-        <p>User Management Component</p>
+        <h2>{{ $t('admin.users.title') }}</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ $t('admin.users.username') }}</th>
+                    <th>{{ $t('admin.users.email') }}</th>
+                    <th>{{ $t('admin.users.status') }}</th>
+                    <th>{{ $t('admin.users.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="user in users" :key="user.id">
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.perms === 1 ? 'Admin' : 'User' }}</td>
+                    <td>
+                        {{ user.perms === 1 ? $t('admin.users.admin') : $t('admin.users.user') }}
+                    </td>
                     <td>
                         <button
                             @click="toggleAdminStatus(user.id, user.perms)"
                             :class="user.perms === 1 ? 'revoke' : 'grant'"
                         >
-                            {{ user.perms === 1 ? 'Revoke Admin' : 'Make Admin' }}
+                            {{
+                                user.perms === 1
+                                    ? $t('admin.users.revokeAdmin')
+                                    : $t('admin.users.makeAdmin')
+                            }}
                         </button>
-                        <button @click="deleteUser(user.id)">Delete</button>
+                        <button @click="deleteUser(user.id)">{{ $t('admin.users.delete') }}</button>
                     </td>
                 </tr>
             </tbody>

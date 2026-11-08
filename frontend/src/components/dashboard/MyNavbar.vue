@@ -77,6 +77,9 @@ function changeLocale(str: string, img: string) {
                     <li v-if="authStore.isAuthenticated">
                         <router-link to="/Settings">{{ $t('nav.settings') }}</router-link>
                     </li>
+                    <li v-if="authStore.isAuthenticated">
+                        <router-link to="/Settings/Tickets">{{ $t('nav.tickets') }}</router-link>
+                    </li>
                     <li v-if="!authStore.isAuthenticated">
                         <router-link to="/login">{{ $t('nav.login') }}</router-link>
                     </li>

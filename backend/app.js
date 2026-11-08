@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const db = require("./db");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/api/movies", require("./routes/movies"));
@@ -18,6 +20,9 @@ app.use("/api/orders", require("./routes/orders"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
+  if (err.status === 413) {
+    return res.status(413).json({ error: "Image must be 5 MB or smaller" });
+  }
   res.status(500).send("Something broke!");
 });
 

@@ -14,14 +14,19 @@ Built with Vue 3, TypeScript, Pinia, Vue Router, Vue I18n, Tailwind CSS, and Dai
 - Cinema information, events, and news
 - Account registration, login, profile editing, and password changes
 - Admin tools for managing movies, shows, and users
+- Movie poster uploads and per-show ticket prices
+- Fixed cinema venues with predefined seating layouts
 - English and Estonian interfaces
-- Demo ticket selection and purchase summaries
+- Ticket selection, saved reservations, and account ticket history
 
 ## Demo limitations
 
-Seat occupancy is generated in the browser. Purchase pages display a summary; they do not process payments or save reservations.
+Payments are simulated; no real payment provider is used. Seat reservations are
+saved, and signed-in purchases appear in the account's ticket history. Guest
+purchases are not linked to an account.
 
 The application is intended for a local environment. API URLs currently point to `http://localhost:3000`.
+Uploaded movie posters are stored in `backend/uploads/` and are excluded from Git.
 
 ## Requirements
 
@@ -73,6 +78,24 @@ SOURCE backend/DUMP/dump.sql;
 
 **Import into a disposable development database: the dump drops and recreates its tables.**
 
+For an existing database that has not had the initial pricing migration applied,
+run both migrations in order:
+
+```sql
+SOURCE backend/migrations/001_movie_ticket_prices.sql;
+SOURCE backend/migrations/002_show_ticket_prices.sql;
+SOURCE backend/migrations/003_account_tickets_and_seat_capacity.sql;
+SOURCE backend/migrations/004_fixed_venue_layouts.sql;
+```
+
+If migration 001 was already applied, run migrations 002, 003, and 004. If
+migration 002 was already applied, run migrations 003 and 004. If migration 003
+was already applied, run only `004_fixed_venue_layouts.sql`.
+This migration enables account ticket history for future signed-in purchases and
+allows show capacities above 127 seats. Existing guest orders remain unassigned.
+Migration 004 stores the selected fixed venue for each new screening. Existing
+screenings keep their legacy generated seat maps.
+
 The seed includes:
 
 - Three cinemas
@@ -109,6 +132,7 @@ If the homepage contains no show cards, check that the database contains screeni
 ```text
 backend/
   DUMP/          Database schema and demo seed data
+  migrations/    Schema updates for existing databases
   middleware/    Authentication and request validation
   routes/        API endpoints
 

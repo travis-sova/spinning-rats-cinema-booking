@@ -4,9 +4,11 @@ import MyHome from '@/views/MyHome.vue';
 import MyNews from '@/views/MyNews.vue';
 import MyMovies from '@/views/MyMovies.vue';
 import MyCinemas from '@/views/MyCinemas.vue';
+import MyCinemaSessions from '@/views/MyCinemaSessions.vue';
 import MyEvents from '@/views/MyEvents.vue';
 import MyTickets from '@/views/MyTickets.vue';
 import MySettings from '@/views/MySettings.vue';
+import MyAccountTickets from '@/views/MyAccountTickets.vue';
 import My404Error from '@/views/My404Error.vue';
 import MyMovieDetails from '@/views/MyMovieDetails.vue';
 import MyPurchase from '@/views/MyPurchase.vue';
@@ -23,6 +25,11 @@ const router = createRouter({
         { path: '/News', name: 'News', component: MyNews },
         { path: '/Movies', name: 'Movies', component: MyMovies },
         { path: '/Cinemas', name: 'Cinemas', component: MyCinemas },
+        {
+            path: '/Cinemas/:id/Sessions',
+            name: 'CinemaSessions',
+            component: MyCinemaSessions,
+        },
         { path: '/Events', name: 'Events', component: MyEvents },
 
         { path: '/Movie/tickets/:id', name: 'Tickets', component: MyTickets, props: true },
@@ -45,6 +52,12 @@ const router = createRouter({
         { path: '/News/:id', name: 'NewsDetails', component: MyNewsDetails, props: true },
 
         { path: '/Settings', name: 'Settings', component: MySettings },
+        {
+            path: '/Settings/Tickets',
+            name: 'AccountTickets',
+            component: MyAccountTickets,
+            meta: { requiresAuth: true },
+        },
 
         {
             path: '/Admin',

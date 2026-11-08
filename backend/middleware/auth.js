@@ -38,6 +38,13 @@ const authenticate = async (req, res, next) => {
   }
 };
 
+const authenticateOptional = async (req, res, next) => {
+  if (!req.header("Authorization")) {
+    return next();
+  }
+  return authenticate(req, res, next);
+};
+
 const isAdmin = async (req, res, next) => {
   try {
     if (!req.user) throw new Error("User not authenticated");
@@ -51,4 +58,4 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, isAdmin };
+module.exports = { authenticate, authenticateOptional, isAdmin };

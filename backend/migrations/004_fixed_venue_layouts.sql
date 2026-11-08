@@ -1,0 +1,2 @@
+ALTER TABLE shows
+  ADD COLUMN venue_id VARCHAR(50) NULL AFTER cinema;

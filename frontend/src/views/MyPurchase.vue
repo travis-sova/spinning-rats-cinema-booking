@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue';
+import { ref, reactive, computed, nextTick, onBeforeUnmount, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import { useI18n } from 'vue-i18n';
@@ -39,6 +39,7 @@ const info = ref<Info | null>(null);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 const step = ref<Step>('checkout');
+const isPrinting = ref(false);
 
 const total = computed(() => order.value?.total ?? 0);
 const isEvent = computed(() => order.value?.kind === 'event');
@@ -74,9 +75,12 @@ const fetchData = async () => {
         } else {
             const showRes = await axios.get<Show>(`${API}/shows/show/${orderRes.data.itemId}`);
             const s = showRes.data;
+            const venueName = s.venue_id ? t(`venueNames.${s.venue_id}`) : '';
             info.value = {
                 title: s.movie_name ?? 'Unknown movie',
-                place: s.cinema_name ?? '',
+                place: [s.cinema_name, venueName ? `${t('ticket.venue')}: ${venueName}` : '']
+                    .filter(Boolean)
+                    .join(' · '),
                 date: formatDate(s.date),
                 time: s.time,
             };
@@ -166,9 +170,23 @@ function retry() {
     step.value = 'checkout';
 }
 
-function printTicket() {
+function finishPrinting() {
+    isPrinting.value = false;
+}
+
+async function printTicket() {
+    isPrinting.value = true;
+    await nextTick();
+    await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+    );
+    window.addEventListener('afterprint', finishPrinting, { once: true });
     window.print();
 }
+
+onBeforeUnmount(() => {
+    window.removeEventListener('afterprint', finishPrinting);
+});
 
 onMounted(fetchData);
 </script>
@@ -366,8 +384,12 @@ onMounted(fetchData);
             </div>
         </template>
 
-        <div v-else-if="step === 'success'" class="max-w-3xl mx-auto">
-            <div role="alert" class="alert alert-success mb-6">
+        <div
+            v-else-if="step === 'success'"
+            class="max-w-3xl mx-auto"
+            :class="{ printing: isPrinting }"
+        >
+            <div role="alert" class="alert alert-success mb-6 no-print">
                 <span
                     >Payment successful. {{ total.toFixed(2) }} € was charged to the card ending
                     {{ order.cardLast4 }}. Your
@@ -393,9 +415,11 @@ onMounted(fetchData);
 
             <div class="no-print flex flex-wrap justify-center gap-3 mt-6">
                 <button type="button" class="btn btn-primary" @click="printTicket">
-                    Print {{ order.tickets.length === 1 ? 'ticket' : 'tickets' }}
+                    {{ $t('accountTickets.print') }}
                 </button>
-                <router-link :to="isEvent ? '/Events' : '/Movies'" class="btn btn-accent">{{ $t('movie.back') }}</router-link>
+                <router-link :to="isEvent ? '/Events' : '/Movies'" class="btn btn-accent">{{
+                    $t('movie.back')
+                }}</router-link>
             </div>
         </div>
 
@@ -404,7 +428,9 @@ onMounted(fetchData);
                 <div>
                     <h2 class="font-bold">Payment failed</h2>
                     <p>{{ failureReason }}</p>
-                    <p class="text-sm">You haven’t been charged. Your seats are still held for you.</p>
+                    <p class="text-sm">
+                        You haven’t been charged. Your seats are still held for you.
+                    </p>
                 </div>
             </div>
 
@@ -428,7 +454,10 @@ onMounted(fetchData);
 
             <div class="flex justify-center">
                 <router-link
-                    :to="{ name: isEvent ? 'EventTickets' : 'Tickets', params: { id: order.itemId } }"
+                    :to="{
+                        name: isEvent ? 'EventTickets' : 'Tickets',
+                        params: { id: order.itemId },
+                    }"
                     class="btn btn-primary"
                 >
                     Choose seats
@@ -447,22 +476,41 @@ onMounted(fetchData);
 <style>
 @media print {
     body * {
-        visibility: hidden;
+        visibility: hidden !important;
     }
-    .print-area,
-    .print-area * {
-        visibility: visible;
+
+    .printing .print-area,
+    .printing .print-area * {
+        visibility: visible !important;
     }
-    .print-area {
+
+    .printing .print-area {
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
+        padding: 10mm;
+        background: #fff;
+        color: #000;
     }
-    .ticket-item {
+
+    .printing .no-print {
+        display: none !important;
+    }
+
+    .printing .ticket-item {
         break-inside: avoid;
+        border-color: #555;
+        background: #fff;
+        color: #000;
+        box-shadow: none;
     }
-    .ticket-notch {
+
+    .printing .ticket-item * {
+        color: #000 !important;
+    }
+
+    .printing .ticket-notch {
         background: #fff !important;
     }
 }

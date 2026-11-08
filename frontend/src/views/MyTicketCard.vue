@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import JsBarcode from 'jsbarcode';
+import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
     title: string;
@@ -12,19 +13,25 @@ const props = defineProps<{
     time?: string;
 }>();
 
-const bars = computed(() => {
-    let seed = [...props.code].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 7);
-    const out: { x: number; w: number }[] = [];
-    let x = 0;
-    while (x < 200) {
-        seed = (seed * 1664525 + 1013904223) >>> 0;
-        const w = 1 + (seed % 4);
-        const gap = 1 + ((seed >>> 8) % 3);
-        if (x + w <= 200) out.push({ x, w });
-        x += w + gap;
-    }
-    return out;
-});
+const barcode = ref<SVGSVGElement | null>(null);
+
+function renderBarcode() {
+    if (!barcode.value) return;
+    barcode.value.replaceChildren();
+    if (!props.code) return;
+
+    JsBarcode(barcode.value, props.code, {
+        format: 'CODE128',
+        width: 2,
+        height: 64,
+        displayValue: false,
+        margin: 0,
+        lineColor: '#111827',
+    });
+}
+
+onMounted(renderBarcode);
+watch(() => props.code, renderBarcode);
 </script>
 
 <template>
@@ -43,7 +50,9 @@ const bars = computed(() => {
                 <div v-if="place" class="font-semibold">{{ place }}</div>
                 <div class="flex gap-2 text-sm mt-1">
                     <span v-if="date">{{ date }}</span>
-                    <span v-if="time" class="text-blue-600 bg-blue-50 px-2 rounded">{{ time }}</span>
+                    <span v-if="time" class="text-blue-600 bg-blue-50 px-2 rounded">{{
+                        time
+                    }}</span>
                 </div>
             </div>
 
@@ -64,27 +73,20 @@ const bars = computed(() => {
         <div
             class="relative flex flex-col items-center justify-center gap-2 p-6 md:w-56 border-t-2 md:border-t-0 md:border-l-2 border-dashed border-gray-500"
         >
-            <span class="absolute -top-3 -left-3 h-6 w-6 rounded-full bg-base-100 ticket-notch"></span>
+            <span
+                class="absolute -top-3 -left-3 h-6 w-6 rounded-full bg-base-100 ticket-notch"
+            ></span>
             <span
                 class="absolute -top-3 -right-3 md:top-auto md:right-auto md:-bottom-3 md:-left-3 h-6 w-6 rounded-full bg-base-100 ticket-notch"
             ></span>
 
             <svg
-                viewBox="0 0 200 56"
-                class="w-full max-w-[180px] text-base-content"
+                v-if="code"
+                ref="barcode"
+                class="w-full max-w-[220px]"
                 role="img"
-                :aria-label="`Barcode for ticket ${code}`"
-            >
-                <rect
-                    v-for="b in bars"
-                    :key="b.x"
-                    :x="b.x"
-                    y="0"
-                    :width="b.w"
-                    height="56"
-                    fill="currentColor"
-                />
-            </svg>
+                :aria-label="`Code 128 barcode for ticket ${code}`"
+            ></svg>
             <p class="font-mono text-sm tracking-widest">{{ code }}</p>
         </div>
     </article>

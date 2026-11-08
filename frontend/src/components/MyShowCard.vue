@@ -2,8 +2,10 @@
 import { onMounted, ref, computed } from 'vue';
 import axios from 'axios';
 import { useI18n } from 'vue-i18n';
+import { useGenreLabel } from '@/composables/useGenreLabel.ts';
 
 const { t } = useI18n();
+const genreLabel = useGenreLabel();
 
 import type { Movie } from '@/types/movie.ts';
 import type { Show } from '@/types/show.ts';
@@ -21,6 +23,10 @@ const props = defineProps({
     sortTitleOption: {
         type: String,
         default: 'A-Z',
+    },
+    searchQuery: {
+        type: String,
+        default: '',
     },
 });
 
@@ -58,6 +64,11 @@ const filteredMovies = computed(() => {
 
     if (props.selectedGenre !== 'All') {
         result = result.filter((item) => item.movie.genre === props.selectedGenre);
+    }
+
+    const query = props.searchQuery.trim().toLocaleLowerCase();
+    if (query) {
+        result = result.filter((item) => item.movie.name.toLocaleLowerCase().includes(query));
     }
 
     if (props.sortTitleOption === 'A-Z') {
@@ -151,7 +162,7 @@ onMounted(() => {
                             <h2 class="card-title text-xl">{{ group.movie.name }}</h2>
                             <div class="flex items-center gap-2 my-2">
                                 <span class="badge badge-outline opacity-75">{{
-                                    $t('shows.genres.' + group.movie.genre)
+                                    genreLabel(group.movie.genre)
                                 }}</span>
                                 <div class="flex items-center gap-1">
                                     <span class="text-yellow-500 font-semibold"
@@ -173,6 +184,9 @@ onMounted(() => {
                                     <div>
                                         <div class="font-semibold">
                                             {{ getCinemaName(show.cinema) }}
+                                            <span v-if="show.venue_id">
+                                                · {{ $t(`venueNames.${show.venue_id}`) }}
+                                            </span>
                                         </div>
                                         <div class="flex gap-2 text-sm">
                                             <span>{{ formatDate(show.date) }}</span>
