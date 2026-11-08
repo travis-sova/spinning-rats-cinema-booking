@@ -16,7 +16,7 @@ const VENUES = [
     rows: venueRows([10, 10, 10, 10, 10, 10, 8, 7]),
   },
   {
-    id: "uemiste-vanake",
+    id: "ylemiste-vanake",
     cinemaId: 3,
     rows: venueRows(Array(10).fill(10)),
   },
