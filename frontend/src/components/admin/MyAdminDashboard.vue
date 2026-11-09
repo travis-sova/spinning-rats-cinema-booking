@@ -1,10 +1,10 @@
 <template>
     <div class="admin-dashboard">
-        <h1>Admin Dashboard</h1>
+        <h1>{{ $t('admin.dashboard.title') }}</h1>
 
         <div class="stats">
             <div class="stat-card" v-for="stat in stats" :key="stat.name">
-                <h3>{{ stat.name }}</h3>
+                <h3>{{ $t(stat.name) }}</h3>
                 <p>{{ stat.value }}</p>
             </div>
         </div>
@@ -16,14 +16,14 @@
                 @click="setActiveTab(tab)"
                 :class="{ active: activeTab === tab }"
             >
-                {{ tab }}
+                {{ $t(`admin.dashboard.tabs.${tab.toLowerCase()}`) }}
             </button>
         </div>
 
         <div class="tab-content" style="display: block">
             <UserManagement v-if="activeTab === 'Users'" />
-            <MovieForm v-if="activeTab === 'Movies'" />
-            <ShowForm v-if="activeTab === 'Shows'" />
+            <MovieForm v-if="activeTab === 'Movies'" @schedule-movie="scheduleMovie" />
+            <ShowForm v-if="activeTab === 'Shows'" :initial-movie-id="scheduledMovieId" />
         </div>
     </div>
 </template>
@@ -43,13 +43,14 @@ export default {
     setup() {
         const authStore = useAuthStore();
         const stats = ref([
-            { name: 'Movies', value: 0 },
-            { name: 'Shows', value: 0 },
-            { name: 'Users', value: 0 },
+            { name: 'admin.dashboard.stats.movies', value: 0 },
+            { name: 'admin.dashboard.stats.shows', value: 0 },
+            { name: 'admin.dashboard.stats.users', value: 0 },
         ]);
 
         const tabs: Tab[] = ['Users', 'Movies', 'Shows'] as const;
         const activeTab = ref<Tab>('Users');
+        const scheduledMovieId = ref<number>();
 
         const fetchStats = async () => {
             try {
@@ -57,9 +58,9 @@ export default {
                     headers: { Authorization: `Bearer ${authStore.token}` },
                 });
                 stats.value = [
-                    { name: 'Movies', value: response.data.movies },
-                    { name: 'Shows', value: response.data.shows },
-                    { name: 'Users', value: response.data.users },
+                    { name: 'admin.dashboard.stats.movies', value: response.data.movies },
+                    { name: 'admin.dashboard.stats.shows', value: response.data.shows },
+                    { name: 'admin.dashboard.stats.users', value: response.data.users },
                 ];
             } catch (error) {
                 console.error('Failed to fetch stats:', error);
@@ -70,9 +71,14 @@ export default {
             activeTab.value = tab;
         };
 
+        const scheduleMovie = (movieId: number) => {
+            scheduledMovieId.value = movieId;
+            activeTab.value = 'Shows';
+        };
+
         onMounted(fetchStats);
 
-        return { stats, tabs, activeTab, setActiveTab };
+        return { stats, tabs, activeTab, setActiveTab, scheduledMovieId, scheduleMovie };
     },
 };
 </script>

@@ -5,8 +5,10 @@ import axios from 'axios';
 
 import type { Movie } from '@/types/movie.ts';
 import type { Show } from '@/types/show.ts';
+import { useGenreLabel } from '@/composables/useGenreLabel.ts';
 
 const route = useRoute();
+const genreLabel = useGenreLabel();
 const movieId = Number(route.params.id);
 
 const movie = ref<Movie | null>(null);
@@ -78,7 +80,7 @@ onMounted(() => {
                     <div
                         class="badge badge-outline text-sm mb-4 bg-pink-700 text-white border-pink-500"
                     >
-                        {{ $t('shows.genres.' + movie.genre) }}
+                        {{ genreLabel(movie.genre) }}
                     </div>
                     <p class="text-primary-content text-lg mb-6">
                         {{ movie.description }}
@@ -117,7 +119,12 @@ onMounted(() => {
                     class="flex justify-between items-center gap-4"
                 >
                     <div>
-                        <div class="font-semibold">{{ show.cinema_name }}</div>
+                        <div class="font-semibold">
+                            {{ show.cinema_name }}
+                            <span v-if="show.venue_id">
+                                · {{ $t(`venueNames.${show.venue_id}`) }}
+                            </span>
+                        </div>
                         <div class="flex gap-2 text-sm">
                             <span>{{ formatDate(show.date) }}</span>
                             <span class="text-blue-600 bg-blue-50 px-2 rounded">{{

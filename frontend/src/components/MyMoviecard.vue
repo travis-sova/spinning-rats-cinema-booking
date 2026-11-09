@@ -3,8 +3,10 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
 import type { Movie } from '@/types/movie.ts';
+import { useGenreLabel } from '@/composables/useGenreLabel.ts';
 
 const movieList = ref<Movie[]>([]);
+const genreLabel = useGenreLabel();
 
 async function fetchMovies() {
     try {
@@ -39,7 +41,7 @@ onMounted(() => {
                 <div class="card-body">
                     <h2 class="card-title">{{ movie.name }}</h2>
                     <div class="badge badge-outline mb-2">
-                        {{ $t('shows.genres.' + movie.genre) }}
+                        {{ genreLabel(movie.genre) }}
                     </div>
 
                     <p class="text-sm line-clamp-3 mb-4">

@@ -80,9 +80,14 @@ CREATE TABLE `shows` (
   `id` int NOT NULL AUTO_INCREMENT,
   `movie` int DEFAULT NULL,
   `cinema` int DEFAULT NULL,
+  `venue_id` varchar(50) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
-  `seats` tinyint(1) DEFAULT '100',
+  `seats` int NOT NULL DEFAULT '100',
+  `adult_price_cents` int NOT NULL DEFAULT 1060,
+  `student_price_cents` int NOT NULL DEFAULT 838,
+  `senior_price_cents` int NOT NULL DEFAULT 645,
+  `child_price_cents` int NOT NULL DEFAULT 645,
   PRIMARY KEY (`id`),
   KEY `cinema_idx` (`cinema`),
   KEY `movie_idx` (`movie`),
@@ -98,47 +103,47 @@ CREATE TABLE `shows` (
 LOCK TABLES `shows` WRITE;
 /*!40000 ALTER TABLE `shows` DISABLE KEYS */;
 -- Sample screenings: two per movie, 19-25 January 2027.
-INSERT INTO `shows` (`id`, `movie`, `cinema`, `date`, `time`, `seats`) VALUES
-(1, 1, 1, '2027-01-19', '15:00:00', 73),
-(2, 2, 2, '2027-01-19', '15:00:00', 41),
-(3, 3, 3, '2027-01-19', '15:00:00', 12),
-(4, 4, 1, '2027-01-19', '19:00:00', 88),
-(5, 5, 2, '2027-01-19', '19:00:00', 27),
-(6, 6, 3, '2027-01-19', '19:00:00', 56),
-(7, 7, 1, '2027-01-20', '15:00:00', 8),
-(8, 8, 2, '2027-01-20', '15:00:00', 64),
-(9, 9, 3, '2027-01-20', '15:00:00', 35),
-(10, 10, 1, '2027-01-20', '19:00:00', 91),
-(11, 11, 2, '2027-01-20', '19:00:00', 18),
-(12, 12, 3, '2027-01-20', '19:00:00', 47),
-(13, 13, 1, '2027-01-21', '15:00:00', 52),
-(14, 14, 2, '2027-01-21', '15:00:00', 23),
-(15, 15, 3, '2027-01-21', '15:00:00', 4),
-(16, 16, 1, '2027-01-21', '19:00:00', 79),
-(17, 17, 2, '2027-01-21', '19:00:00', 44),
-(18, 18, 3, '2027-01-21', '19:00:00', 67),
-(19, 19, 1, '2027-01-22', '15:00:00', 16),
-(20, 20, 2, '2027-01-22', '15:00:00', 31),
-(21, 1, 3, '2027-01-22', '15:00:00', 95),
-(22, 2, 1, '2027-01-22', '19:00:00', 61),
-(23, 3, 2, '2027-01-22', '19:00:00', 9),
-(24, 4, 3, '2027-01-22', '19:00:00', 38),
-(25, 5, 1, '2027-01-23', '15:00:00', 84),
-(26, 6, 2, '2027-01-23', '15:00:00', 29),
-(27, 7, 3, '2027-01-23', '15:00:00', 14),
-(28, 8, 1, '2027-01-23', '19:00:00', 70),
-(29, 9, 2, '2027-01-23', '19:00:00', 49),
-(30, 10, 3, '2027-01-23', '19:00:00', 57),
-(31, 11, 1, '2027-01-24', '15:00:00', 2),
-(32, 12, 2, '2027-01-24', '15:00:00', 76),
-(33, 13, 3, '2027-01-24', '15:00:00', 33),
-(34, 14, 1, '2027-01-24', '19:00:00', 98),
-(35, 15, 2, '2027-01-24', '19:00:00', 19),
-(36, 16, 3, '2027-01-24', '19:00:00', 42),
-(37, 17, 1, '2027-01-25', '15:00:00', 68),
-(38, 18, 2, '2027-01-25', '15:00:00', 25),
-(39, 19, 3, '2027-01-25', '15:00:00', 6),
-(40, 20, 1, '2027-01-25', '19:00:00', 86);
+INSERT INTO `shows` (`id`, `movie`, `cinema`, `venue_id`, `date`, `time`, `seats`) VALUES
+(1, 1, 1, 'balti-telliskivi', '2027-01-19', '15:00:00', 75),
+(2, 2, 2, 'oismae-ringi-saal', '2027-01-19', '15:00:00', 68),
+(3, 3, 3, 'ylemiste-vanake', '2027-01-19', '15:00:00', 100),
+(4, 4, 1, 'balti-elron', '2027-01-19', '19:00:00', 75),
+(5, 5, 2, 'oismae-harku', '2027-01-19', '19:00:00', 66),
+(6, 6, 3, 'ylemiste-vanake', '2027-01-19', '19:00:00', 100),
+(7, 7, 1, 'balti-telliskivi', '2027-01-20', '15:00:00', 75),
+(8, 8, 2, 'oismae-oismae', '2027-01-20', '15:00:00', 66),
+(9, 9, 3, 'ylemiste-vanake', '2027-01-20', '15:00:00', 100),
+(10, 10, 1, 'balti-elron', '2027-01-20', '19:00:00', 75),
+(11, 11, 2, 'oismae-ringi-saal', '2027-01-20', '19:00:00', 68),
+(12, 12, 3, 'ylemiste-vanake', '2027-01-20', '19:00:00', 100),
+(13, 13, 1, 'balti-telliskivi', '2027-01-21', '15:00:00', 75),
+(14, 14, 2, 'oismae-harku', '2027-01-21', '15:00:00', 66),
+(15, 15, 3, 'ylemiste-vanake', '2027-01-21', '15:00:00', 100),
+(16, 16, 1, 'balti-elron', '2027-01-21', '19:00:00', 75),
+(17, 17, 2, 'oismae-oismae', '2027-01-21', '19:00:00', 66),
+(18, 18, 3, 'ylemiste-vanake', '2027-01-21', '19:00:00', 100),
+(19, 19, 1, 'balti-telliskivi', '2027-01-22', '15:00:00', 75),
+(20, 20, 2, 'oismae-ringi-saal', '2027-01-22', '15:00:00', 68),
+(21, 1, 3, 'ylemiste-vanake', '2027-01-22', '15:00:00', 100),
+(22, 2, 1, 'balti-elron', '2027-01-22', '19:00:00', 75),
+(23, 3, 2, 'oismae-harku', '2027-01-22', '19:00:00', 66),
+(24, 4, 3, 'ylemiste-vanake', '2027-01-22', '19:00:00', 100),
+(25, 5, 1, 'balti-telliskivi', '2027-01-23', '15:00:00', 75),
+(26, 6, 2, 'oismae-oismae', '2027-01-23', '15:00:00', 66),
+(27, 7, 3, 'ylemiste-vanake', '2027-01-23', '15:00:00', 100),
+(28, 8, 1, 'balti-elron', '2027-01-23', '19:00:00', 75),
+(29, 9, 2, 'oismae-ringi-saal', '2027-01-23', '19:00:00', 68),
+(30, 10, 3, 'ylemiste-vanake', '2027-01-23', '19:00:00', 100),
+(31, 11, 1, 'balti-telliskivi', '2027-01-24', '15:00:00', 75),
+(32, 12, 2, 'oismae-harku', '2027-01-24', '15:00:00', 66),
+(33, 13, 3, 'ylemiste-vanake', '2027-01-24', '15:00:00', 100),
+(34, 14, 1, 'balti-elron', '2027-01-24', '19:00:00', 75),
+(35, 15, 2, 'oismae-oismae', '2027-01-24', '19:00:00', 66),
+(36, 16, 3, 'ylemiste-vanake', '2027-01-24', '19:00:00', 100),
+(37, 17, 1, 'balti-telliskivi', '2027-01-25', '15:00:00', 75),
+(38, 18, 2, 'oismae-ringi-saal', '2027-01-25', '15:00:00', 68),
+(39, 19, 3, 'ylemiste-vanake', '2027-01-25', '15:00:00', 100),
+(40, 20, 1, 'balti-elron', '2027-01-25', '19:00:00', 75);
 /*!40000 ALTER TABLE `shows` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +182,47 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `number`, `newsletter`, `fname`, `sname`, `dob`, `sex`, `perms`) VALUES
 (1, 'admin', '$2b$12$nd0U2wQDKu6M8dl/NzpUKOq6KJN78oF0PqL43Z.YG0ZlRaRpM/n.y', 'a@a.com', '+123', 1, 'admin', 'admin', '2010-01-01', 'attack_helicopter', 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
 UNLOCK TABLES;
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `id` char(36) NOT NULL,
+    `kind` ENUM('show', 'event') NOT NULL,
+    `item_id` int NOT NULL,
+    `user_id` int DEFAULT NULL,
+    `total_cents` int NOT NULL,
+    `status` ENUM('pending', 'paid') NOT NULL DEFAULT 'pending',
+    `card_last4` char(4) DEFAULT NULL,
+    `expires_at` datetime DEFAULT NULL,
+    `paid_at` datetime DEFAULT NULL,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `orders_user_id_idx` (`user_id`),
+    INDEX (`kind`, `item_id`),
+    CONSTRAINT `orders_user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `order_seats`
+--
+
+DROP TABLE IF EXISTS `order_seats`;
+CREATE TABLE `order_seats` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `order_id` char(36) NOT NULL,
+    `seat` varchar(10) NOT NULL,
+    `ticket_type` varchar(10) NOT NULL,
+    `ticket_code` char(9) NULL UNIQUE,
+    `price_cents` int NOT NULL,
+    FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+    PRIMARY KEY (`id`),
+    INDEX (`seat`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

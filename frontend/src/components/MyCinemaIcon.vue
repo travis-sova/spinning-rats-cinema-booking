@@ -8,6 +8,7 @@
             fontSize: `${baseFontSize * iconScale}px`,
         }"
         class="cinema-icon absolute bg-red-500 hover:bg-red-700 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-300 transform hover:scale-125 animate-fadeIn flex items-center justify-center"
+        :aria-label="cinema.name"
         @click="$emit('selectCinema', cinema)"
     >
         🎥
@@ -36,7 +37,6 @@ export default {
     methods: {
         updateIconScale() {
             const baseScreenWidth = 1920;
-            // Minimum Scale to prevent icons from becoming too small
             const minScale = 0.6;
             this.iconScale = Math.max(minScale, Math.min(1, window.innerWidth / baseScreenWidth));
         },

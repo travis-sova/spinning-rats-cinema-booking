@@ -9,11 +9,13 @@ import { ref } from 'vue';
 const selectedDate = ref('');
 const selectedGenre = ref('All');
 const sortTitleOption = ref('A-Z');
+const searchQuery = ref('');
 
-function handleSortChange(options: { date: string; genre: string; title: string }) {
+function handleSortChange(options: { date: string; genre: string; title: string; search: string }) {
     selectedDate.value = options.date;
     selectedGenre.value = options.genre;
     sortTitleOption.value = options.title;
+    searchQuery.value = options.search;
 }
 </script>
 
@@ -28,6 +30,7 @@ function handleSortChange(options: { date: string; genre: string; title: string 
                     :selectedDate="selectedDate"
                     :selectedGenre="selectedGenre"
                     :sortTitleOption="sortTitleOption"
+                    :searchQuery="searchQuery"
                 />
             </div>
         </div>

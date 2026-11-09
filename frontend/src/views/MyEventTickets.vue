@@ -34,7 +34,7 @@
                         </div>
                         <div class="flex items-center">
                             <span class="text-lg font-bold mr-4 text-primary-content"
-                                >{{ ticket.price }} €</span
+                                >{{ ticket.price.toFixed(2) }} €</span
                             >
                             <button
                                 @click="decreaseCount(ticket.type)"
@@ -50,6 +50,7 @@
                                 @click="increaseCount(ticket.type)"
                                 class="btn btn-sm btn-accent"
                                 :disabled="
+                                    totalTickets >= MAX_TICKETS_PER_ORDER ||
                                     totalTickets >= availableSeats ||
                                     selectedSeats.length >= availableSeats
                                 "
@@ -96,6 +97,10 @@
                     {{ $t('ticket.total') }} {{ totalPrice }} €
                 </div>
 
+                <div v-if="purchaseError" role="alert" class="alert alert-error mt-4">
+                    <span>{{ purchaseError }}</span>
+                </div>
+
                 <div class="mt-6 flex justify-center gap-4">
                     <router-link :to="'/events'" class="btn btn-lg btn-accent">
                         {{ $t('ticket.back') }}
@@ -103,9 +108,10 @@
                     <button
                         type="button"
                         class="btn btn-lg btn-accent"
-                        :disabled="!canPurchase"
+                        :disabled="!canPurchase || isSubmitting"
                         @click="purchase"
                     >
+                        <span v-if="isSubmitting" class="loading loading-spinner loading-sm"></span>
                         {{ $t('ticket.purchase') }}
                     </button>
                 </div>
@@ -117,31 +123,55 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 import { events } from '../data/events.ts';
 
-import type { Ticket } from '@/types/ticket.ts';
-import type { TicketType } from '@/types/tickettype.ts';
-import type { Seat } from '@/types/seat.ts';
+import { createTickets } from '@/data/tickets.ts';
+import { MAX_TICKETS_PER_ORDER, useTicketSelection } from '@/composables/useTicketSelection.ts';
+import { useAuthStore } from '@/stores/auth.ts';
 
 const router = useRouter();
 const route = useRoute();
+const authStore = useAuthStore();
 const eventId = Number(route.params.id);
+
+const isSubmitting = ref(false);
+const purchaseError = ref('');
 
 const canPurchase = computed(
     () => totalTickets.value > 0 && selectedSeats.value.length === totalTickets.value,
 );
 
-function purchase() {
-    if (!canPurchase.value || !event) return;
+async function purchase() {
+    if (!canPurchase.value || !event || isSubmitting.value) return;
 
-    router.push({
-        name: 'EventPurchase',
-        params: { id: event.id },
-        query: {
-            total: totalPrice.value,
-            seats: selectedSeats.value.join(','),
-        },
-    });
+    const types = tickets.value.flatMap((t) =>
+        Array.from({ length: ticketCounts.value[t.type] }, () => t.type),
+    );
+    const items = types.map((type, i) => ({ type, seat: selectedSeats.value[i] ?? '' }));
+
+    isSubmitting.value = true;
+    purchaseError.value = '';
+    try {
+        const { data } = await axios.post<{ id: string }>(
+            'http://localhost:3000/api/orders',
+            {
+                kind: 'event',
+                itemId: event.id,
+                tickets: items,
+            },
+            authStore.token
+                ? { headers: { Authorization: 'Bearer ' + authStore.token } }
+                : undefined,
+        );
+        router.push({ name: 'EventPurchase', params: { orderId: data.id } });
+    } catch (err) {
+        purchaseError.value = axios.isAxiosError(err)
+            ? err.response?.data?.error || err.message
+            : 'Could not reserve seats';
+    } finally {
+        isSubmitting.value = false;
+    }
 }
 
 const event = events.find((e) => e.id === eventId);
@@ -150,96 +180,20 @@ if (!event) {
     throw new Error(`Event with ID ${eventId} not found`);
 }
 
-const ticketCounts = ref<Record<TicketType, number>>({ Adult: 0, Student: 0, Senior: 0, Child: 0 });
-const tickets: Ticket[] = [
-    {
-        type: 'Adult',
-        label: 'ticket.adult.label',
-        price: 20.99,
-        description: 'ticket.adult.description',
-    },
-    {
-        type: 'Student',
-        label: 'ticket.student.label',
-        price: 15.49,
-        description: 'ticket.student.description',
-    },
-    {
-        type: 'Senior',
-        label: 'ticket.senior.label',
-        price: 15.49,
-        description: 'ticket.senior.description',
-    },
-    {
-        type: 'Child',
-        label: 'ticket.child.label',
-        price: 10.6,
-        description: 'ticket.child.description',
-    },
-];
-
-const availableSeats = ref(event.seats);
-const totalSeats = 100;
-const reservedSeatsCount = computed(() => totalSeats - availableSeats.value);
-const seatLayout = ref<Seat[]>([]);
-
-function generateSeatLayout() {
-    const seats = Array.from({ length: totalSeats }, (_, i) => ({
-        id: i + 1,
-        label: `S${i + 1}`,
-        selected: false,
-        reserved: false,
-    }));
-
-    const reservedIndices = new Set<number>();
-    while (reservedIndices.size < reservedSeatsCount.value) {
-        reservedIndices.add(Math.floor(Math.random() * totalSeats));
-    }
-    reservedIndices.forEach((index) => {
-        const seat = seats[index];
-
-        if (seat) {
-            seat.reserved = true;
-        }
-    });
-
-    return seats;
-}
-
-seatLayout.value = generateSeatLayout();
-
-const totalTickets = computed(() =>
-    Object.values(ticketCounts.value).reduce((sum, count) => sum + count, 0),
-);
-
-const totalPrice = computed(() =>
-    tickets
-        .reduce((sum, ticket) => sum + ticketCounts.value[ticket.type] * ticket.price, 0)
-        .toFixed(2),
-);
-
-const selectedSeats = computed(() =>
-    seatLayout.value.filter((seat) => seat.selected).map((seat) => seat.label),
-);
-
-function increaseCount(type: TicketType) {
-    if (totalTickets.value < availableSeats.value) {
-        ticketCounts.value[type]++;
-    }
-}
-
-function decreaseCount(type: TicketType) {
-    if (ticketCounts.value[type] > 0) {
-        ticketCounts.value[type]--;
-    }
-}
-
-function toggleSeatSelection(seatId: number) {
-    const seat = seatLayout.value.find((s) => s.id === seatId);
-    if (seat && !seat.reserved) {
-        seat.selected = !seat.selected;
-    }
-}
+const tickets = computed(() => createTickets());
+const availableSeats = computed(() => event.seats);
+const {
+    ticketCounts,
+    seatLayout,
+    totalTickets,
+    totalPrice,
+    selectedSeats,
+    initializeSeats,
+    increaseCount,
+    decreaseCount,
+    toggleSeatSelection,
+} = useTicketSelection(tickets, availableSeats);
+initializeSeats();
 </script>
 
 <style scoped>

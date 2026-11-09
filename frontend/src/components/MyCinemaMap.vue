@@ -25,7 +25,7 @@ const { t } = useI18n();
 
 const cinemas = [
     {
-        id: 'cinema3',
+        id: 3,
         name: t('cinemas.3.name'),
         seats: t('cinemas.3.seats'),
         halls: t('cinemas.3.halls'),
@@ -34,7 +34,7 @@ const cinemas = [
         position: { top: '75%', left: '50%' },
     },
     {
-        id: 'cinema2',
+        id: 2,
         name: t('cinemas.2.name'),
         seats: t('cinemas.2.seats'),
         halls: t('cinemas.2.halls'),
@@ -43,7 +43,7 @@ const cinemas = [
         position: { top: '57%', left: '24%' },
     },
     {
-        id: 'cinema1',
+        id: 1,
         name: t('cinemas.1.name'),
         seats: t('cinemas.1.seats'),
         halls: t('cinemas.1.halls'),
@@ -53,9 +53,11 @@ const cinemas = [
     },
 ];
 
-const emit = defineEmits(['selectCinema']);
+const emit = defineEmits<{
+    selectCinema: [cinema: (typeof cinemas)[number]];
+}>();
 
-function selectCinema(cinema: object) {
+function selectCinema(cinema: (typeof cinemas)[number]) {
     emit('selectCinema', cinema);
 }
 </script>

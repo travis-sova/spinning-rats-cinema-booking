@@ -17,6 +17,12 @@
         <div class="card shadow-xl bg-primary text-primary-content rounded-lg p-6">
             <h2 class="text-3xl font-bold mb-4">{{ show.movie_name }}</h2>
             <p class="text-lg text-primary-content mb-6">{{ show.description }}</p>
+            <p v-if="show.cinema_name" class="mb-4 font-semibold text-primary-content">
+                {{ show.cinema_name }}
+                <template v-if="show.venue_id">
+                    · {{ $t('ticket.venue') }}: {{ $t(`venueNames.${show.venue_id}`) }}
+                </template>
+            </p>
 
             <div class="stats shadow bg-secondary text-primary-content rounded-lg p-4 mb-4">
                 <div class="stat">
@@ -39,7 +45,7 @@
                     </div>
                     <div class="flex items-center">
                         <span class="text-lg font-bold mr-4 text-primary-content"
-                            >{{ ticket.price }} €</span
+                            >{{ ticket.price.toFixed(2) }} €</span
                         >
                         <button
                             @click="decreaseCount(ticket.type)"
@@ -55,6 +61,7 @@
                             @click="increaseCount(ticket.type)"
                             class="btn btn-sm btn-accent"
                             :disabled="
+                                totalTickets >= MAX_TICKETS_PER_ORDER ||
                                 totalTickets >= availableSeats ||
                                 selectedSeats.length >= availableSeats
                             "
@@ -74,31 +81,42 @@
                 >
                     {{ $t('ticket.screen') }}
                 </div>
-                <div class="grid grid-cols-5 justify-items-center gap-2 p-2">
-                    <button
-                        v-for="seat in seatLayout"
-                        :key="seat.id"
-                        @click="toggleSeatSelection(seat.id)"
-                        :class="[
-                            'w-12 h-10 rounded-lg',
-                            seat.reserved
-                                ? 'bg-error text-error'
-                                : seat.selected
-                                  ? 'bg-success text-white'
-                                  : 'bg-primary text-primary-content',
-                        ]"
-                        :disabled="
-                            seat.reserved ||
-                            (!seat.selected && selectedSeats.length >= totalTickets)
-                        "
+                <div class="space-y-2 overflow-x-auto p-2">
+                    <div
+                        v-for="row in seatRows"
+                        :key="row.label"
+                        class="flex min-w-max items-center justify-center gap-2"
                     >
-                        {{ seat.label }}
-                    </button>
+                        <span class="w-6 text-center text-xs opacity-70">{{ row.label }}</span>
+                        <button
+                            v-for="seat in row.seats"
+                            :key="seat.id"
+                            @click="toggleSeatSelection(seat.id)"
+                            :class="[
+                                'h-10 min-w-10 rounded-lg px-2 text-xs sm:text-sm',
+                                seat.reserved
+                                    ? 'bg-error text-error'
+                                    : seat.selected
+                                      ? 'bg-success text-white'
+                                      : 'bg-primary text-primary-content',
+                            ]"
+                            :disabled="
+                                seat.reserved ||
+                                (!seat.selected && selectedSeats.length >= totalTickets)
+                            "
+                        >
+                            {{ seat.label }}
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="mt-4 text-lg font-bold text-right text-primary-content">
                 {{ $t('ticket.total') }} {{ totalPrice }} €
+            </div>
+
+            <div v-if="purchaseError" role="alert" class="alert alert-error mt-4">
+                <span>{{ purchaseError }}</span>
             </div>
 
             <div class="mt-6 flex justify-center gap-4">
@@ -111,9 +129,10 @@
                 <button
                     type="button"
                     class="btn btn-lg btn-accent"
-                    :disabled="!canPurchase"
+                    :disabled="!canPurchase || isSubmitting"
                     @click="purchase"
                 >
+                    <span v-if="isSubmitting" class="loading loading-spinner loading-sm"></span>
                     {{ $t('ticket.purchase') }}
                 </button>
             </div>
@@ -122,38 +141,105 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
-import type { Ticket } from '@/types/ticket.ts';
-import type { TicketType } from '@/types/tickettype.ts';
-import type { Seat } from '@/types/seat.ts';
 import type { Show } from '@/types/show.ts';
+import { createTickets } from '@/data/tickets.ts';
+import { MAX_TICKETS_PER_ORDER, useTicketSelection } from '@/composables/useTicketSelection.ts';
+import { useAuthStore } from '@/stores/auth.ts';
+
+interface SeatRow {
+    row: string;
+    seats: string[];
+}
 
 const show = ref<Show | null>(null);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 
+const isSubmitting = ref(false);
+const purchaseError = ref('');
+
 const router = useRouter();
 const route = useRoute();
+const authStore = useAuthStore();
 const showId = Number(route.params.id);
+const availableSeats = computed(() => show.value?.seats || 0);
+const tickets = computed(() =>
+    createTickets(
+        show.value
+            ? {
+                  Adult: show.value.adult_price_cents,
+                  Student: show.value.student_price_cents,
+                  Senior: show.value.senior_price_cents,
+                  Child: show.value.child_price_cents,
+              }
+            : undefined,
+    ),
+);
+const {
+    ticketCounts,
+    seatLayout,
+    totalTickets,
+    totalPrice,
+    selectedSeats,
+    initializeSeats,
+    increaseCount,
+    decreaseCount,
+    toggleSeatSelection,
+} = useTicketSelection(tickets, availableSeats);
+const seatRows = computed(() => {
+    const rows = new Map<string, typeof seatLayout.value>();
+    for (const seat of seatLayout.value) {
+        const label = seat.row ?? '';
+        const row = rows.get(label) ?? [];
+        row.push(seat);
+        rows.set(label, row);
+    }
+    return [...rows].map(([label, seats]) => ({ label, seats }));
+});
+let seatRefreshTimer: ReturnType<typeof setInterval> | undefined;
 
 const canPurchase = computed(
     () => totalTickets.value > 0 && selectedSeats.value.length === totalTickets.value,
 );
 
-function purchase() {
-    if (!canPurchase.value || !show.value) return;
+async function purchase() {
+    if (!canPurchase.value || !show.value || isSubmitting.value) return;
 
-    router.push({
-        name: 'Purchase',
-        params: { id: show.value.id },
-        query: {
-            total: totalPrice.value,
-            seats: selectedSeats.value.join(','),
-        },
-    });
+    // Pair the chosen seats with ticket types: Adult first, then Student, and so on.
+    const types = tickets.value.flatMap((t) =>
+        Array.from({ length: ticketCounts.value[t.type] }, () => t.type),
+    );
+    const items = types.map((type, i) => ({ type, seat: selectedSeats.value[i] ?? '' }));
+
+    isSubmitting.value = true;
+    purchaseError.value = '';
+    try {
+        const { data } = await axios.post<{ id: string }>(
+            'http://localhost:3000/api/orders',
+            {
+                kind: 'show',
+                itemId: show.value.id,
+                tickets: items,
+            },
+            authStore.token
+                ? { headers: { Authorization: 'Bearer ' + authStore.token } }
+                : undefined,
+        );
+        router.push({ name: 'Purchase', params: { orderId: data.id } });
+    } catch (err) {
+        purchaseError.value = axios.isAxiosError(err)
+            ? err.response?.data?.error || err.message
+            : 'Could not reserve seats';
+        if (axios.isAxiosError(err) && err.response?.status === 409) {
+            void refreshSeatAvailability();
+        }
+    } finally {
+        isSubmitting.value = false;
+    }
 }
 
 const fetchData = async () => {
@@ -161,13 +247,22 @@ const fetchData = async () => {
     error.value = null;
 
     try {
-        const [showRes] = await Promise.all([
-            axios.get<Show>(`http://localhost:3000/api/shows/show/` + showId),
+        const [showRes, seatsRes] = await Promise.all([
+            axios.get<Show>(`http://localhost:3000/api/shows/show/${showId}`),
+            axios.get<{
+                availableSeats: number;
+                reservedSeats: string[];
+                totalSeats: number;
+                rows: SeatRow[] | null;
+            }>(`http://localhost:3000/api/shows/show/${showId}/seats`),
         ]);
 
-        show.value = showRes.data;
+        show.value = {
+            ...showRes.data,
+            seats: seatsRes.data.availableSeats,
+        };
 
-        seatLayout.value = generateSeatLayout();
+        initializeSeats(seatsRes.data.reservedSeats, seatsRes.data.totalSeats, seatsRes.data.rows);
     } catch (err) {
         error.value = axios.isAxiosError(err)
             ? err.response?.data?.error || err.message
@@ -178,96 +273,39 @@ const fetchData = async () => {
     }
 };
 
-fetchData();
-
-const ticketCounts = ref<Record<TicketType, number>>({ Adult: 0, Student: 0, Senior: 0, Child: 0 });
-const tickets: Ticket[] = [
-    {
-        type: 'Adult',
-        label: 'ticket.adult.label',
-        price: 10.6,
-        description: 'ticket.adult.description',
-    },
-    {
-        type: 'Student',
-        label: 'ticket.student.label',
-        price: 8.38,
-        description: 'ticket.student.description',
-    },
-    {
-        type: 'Senior',
-        label: 'ticket.senior.label',
-        price: 6.45,
-        description: 'ticket.senior.description',
-    },
-    {
-        type: 'Child',
-        label: 'ticket.child.label',
-        price: 6.45,
-        description: 'ticket.child.description',
-    },
-];
-
-const availableSeats = computed(() => show.value?.seats || 0);
-const totalSeats = 100;
-const reservedSeatsCount = computed(() => totalSeats - availableSeats.value);
-const seatLayout = ref<Seat[]>([]);
-
-function generateSeatLayout() {
-    const seats = Array.from({ length: totalSeats }, (_, i) => ({
-        id: i + 1,
-        label: `S${i + 1}`,
-        selected: false,
-        reserved: false,
-    }));
-
-    const reservedIndices = new Set<number>();
-    while (reservedIndices.size < reservedSeatsCount.value) {
-        reservedIndices.add(Math.floor(Math.random() * totalSeats));
-    }
-    reservedIndices.forEach((index) => {
-        const seat = seats[index];
-
-        if (seat) {
-            seat.reserved = true;
+async function refreshSeatAvailability() {
+    try {
+        const { data } = await axios.get<{
+            availableSeats: number;
+            reservedSeats: string[];
+        }>(`http://localhost:3000/api/shows/show/${showId}/seats`);
+        if (show.value) {
+            show.value.seats = data.availableSeats;
         }
-    });
 
-    return seats;
-}
-
-const totalTickets = computed(() =>
-    Object.values(ticketCounts.value).reduce((sum, count) => sum + count, 0),
-);
-
-const totalPrice = computed(() =>
-    tickets
-        .reduce((sum, ticket) => sum + ticketCounts.value[ticket.type] * ticket.price, 0)
-        .toFixed(2),
-);
-
-const selectedSeats = computed(() =>
-    seatLayout.value.filter((seat) => seat.selected).map((seat) => seat.label),
-);
-
-function increaseCount(type: TicketType) {
-    if (totalTickets.value < availableSeats.value) {
-        ticketCounts.value[type]++;
+        const reserved = new Set(data.reservedSeats);
+        for (const seat of seatLayout.value) {
+            if (reserved.has(seat.label) && seat.selected) {
+                seat.selected = false;
+                purchaseError.value = `${seat.label} was just reserved by someone else. Please choose another seat.`;
+            }
+            seat.reserved = reserved.has(seat.label);
+        }
+    } catch (err) {
+        console.error('Failed to refresh seat availability:', err);
     }
 }
 
-function decreaseCount(type: TicketType) {
-    if (ticketCounts.value[type] > 0) {
-        ticketCounts.value[type]--;
-    }
-}
+onMounted(() => {
+    void fetchData();
+    seatRefreshTimer = setInterval(() => {
+        if (show.value) void refreshSeatAvailability();
+    }, 15000);
+});
 
-function toggleSeatSelection(seatId: number) {
-    const seat = seatLayout.value.find((s) => s.id === seatId);
-    if (seat && !seat.reserved) {
-        seat.selected = !seat.selected;
-    }
-}
+onBeforeUnmount(() => {
+    if (seatRefreshTimer) clearInterval(seatRefreshTimer);
+});
 </script>
 
 <style scoped>

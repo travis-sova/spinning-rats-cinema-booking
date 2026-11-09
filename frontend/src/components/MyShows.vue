@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
+import { useGenreLabel } from '@/composables/useGenreLabel.ts';
 
 import type { Movie } from '@/types/movie.ts';
 import type { Show } from '@/types/show.ts';
@@ -13,9 +14,13 @@ const error = ref<string | null>(null);
 const selectedDate = ref('');
 const selectedGenre = ref('All'); // Default: Show all genres
 const sortTitleOption = ref('A-Z'); // Default: Sort titles A-Z
+const searchQuery = ref('');
+const genreLabel = useGenreLabel();
 
 const emits = defineEmits<{
-    'sort-option-changed': [options: { date: string; genre: string; title: string }];
+    'sort-option-changed': [
+        options: { date: string; genre: string; title: string; search: string },
+    ];
 }>();
 
 const genres = computed(() => {
@@ -44,6 +49,7 @@ function emitFilters() {
         date: selectedDate.value,
         genre: selectedGenre.value,
         title: sortTitleOption.value,
+        search: searchQuery.value,
     });
 }
 
@@ -74,9 +80,19 @@ onMounted(async () => {
     </p>
 
     <form
-        class="menu menu-vertical lg:menu-horizontal w-full justify-start bg-secondary text-primary\"
+        class="menu menu-vertical lg:menu-horizontal w-full justify-start bg-secondary text-primary"
+        @submit.prevent
     >
-        <!-- Date dropdown -->
+        <div class="mx-5">
+            <input
+                v-model="searchQuery"
+                type="search"
+                :placeholder="$t('shows.searchMovies')"
+                :aria-label="$t('shows.searchMovies')"
+                class="bg-primary border border-gray-300 text-primary-content text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                @input="emitFilters"
+            />
+        </div>
         <div class="mx-5">
             <select
                 id="date"
@@ -91,7 +107,6 @@ onMounted(async () => {
                 </option>
             </select>
         </div>
-        <!-- Genre dropdown -->
         <div class="mx-5">
             <select
                 id="genre-select"
@@ -101,11 +116,10 @@ onMounted(async () => {
             >
                 <option value="All">{{ $t('shows.genres.all') }}</option>
                 <option v-for="genre in genres" :key="genre" :value="genre">
-                    {{ $t('shows.genres.' + genre) }}
+                    {{ genreLabel(genre) }}
                 </option>
             </select>
         </div>
-        <!-- title sort dropdown -->
         <div class="mx-5">
             <select
                 id="title-sort-select"

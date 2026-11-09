@@ -15,6 +15,12 @@
             <p v-html="cinema.seats"></p>
             <p v-html="cinema.halls"></p>
             <p v-html="cinema.description"></p>
+            <router-link
+                :to="{ name: 'CinemaSessions', params: { id: cinema.id } }"
+                class="btn btn-primary mt-5"
+            >
+                {{ $t('cinemaSchedule.viewSessions') }}
+            </router-link>
         </div>
     </div>
 </template>
